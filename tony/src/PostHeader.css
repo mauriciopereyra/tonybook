@@ -1,0 +1,40 @@
+/* .avatar
+.user
+.date
+.privacy
+.settings */
+
+.header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    background-color: antiquewhite;
+}
+
+.name_date_wrapper {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.user {
+    display: block;
+    margin-bottom: 5px;
+}
+.date, .privacy {
+    display: inline-block;
+}
+
+.privacy{
+    margin-left: 10px;
+}
+
+.settings {
+    margin-left: auto;
+}

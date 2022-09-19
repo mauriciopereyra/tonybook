@@ -1,7 +1,8 @@
 
 .post {
     margin: 0 auto 10px;
-    display: inline-block;
+    display: block;
     background: rgb(151, 151, 179);
     width: 80%;
+    padding: 15px 20px;
 }
