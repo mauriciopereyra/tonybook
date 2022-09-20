@@ -10,12 +10,18 @@ class PostsList extends React.Component {
           {
           id:0,
           user:'mauricio',
-          content:'this is my content'
+          content:'this is my content',
+          date_posted:'01/05/2022',
+          privacy:'Friends',
+          likes:3,
         },
         {
           id:1,
           user:'oum',
-          content:'more content'
+          content:'more content',
+          date_posted:'15/08/2022',
+          privacy:'Public',
+          likes:5,
         }
         ]
       }
@@ -23,8 +29,8 @@ class PostsList extends React.Component {
   
   
   render() {
-    const posts_element = this.state.posts.map((post) => {
-      return <Post key={post.id} user={post.user} content={post.content} />
+    const posts_list = this.state.posts.map((post) => {
+      return <Post key={post.id} post={post} />
     }
     )
     
@@ -33,7 +39,7 @@ class PostsList extends React.Component {
         <h1>
           Posts list
         </h1>
-        {posts_element}
+        {posts_list}
       </div>
       )
     }

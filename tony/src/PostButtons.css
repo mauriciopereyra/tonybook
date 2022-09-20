@@ -1,0 +1,9 @@
+.post_buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.post_buttons button {
+    width: 20%;
+}
