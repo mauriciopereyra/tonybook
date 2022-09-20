@@ -6,9 +6,9 @@ class Post extends React.Component {
     render() {
       return (
         <div className="post">
-            <PostHeader />
+            <PostHeader user={this.props.user}/>
             <div className="post_text">
-                Post text
+                {this.props.content}
             </div>
             <div className="post_image">
                 Post IMG
