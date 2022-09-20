@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
-from .models import Post
+from .models import Post, Reaction
 from .serializers import *
 
 @api_view(['GET', 'POST'])
@@ -47,3 +47,19 @@ def posts_detail(request, pk):
     elif request.method == 'DELETE':
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+
+
+@api_view(['GET'])
+def post_reactions(request, pk):
+    try:
+        reactions = Reaction.objects.filter(post=pk)
+    except Reaction.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReactionSerializer(reactions, context={'request': request}, many=True)
+        return Response(serializer.data)
