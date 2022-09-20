@@ -1,36 +1,27 @@
 import './PostsList.css';
 import React from 'react';
 import Post from './Post.js'
+import axios from 'axios'; 
 
 class PostsList extends React.Component {
     constructor(props){
       super(props)
       this.state = {
-        posts:[
-          {
-          id:0,
-          user:'mauricio',
-          content:'this is my content',
-          date_posted:'01/05/2022',
-          privacy:'Friends',
-          likes:3,
-        },
-        {
-          id:1,
-          user:'oum',
-          content:'more content',
-          date_posted:'15/08/2022',
-          privacy:'Public',
-          likes:5,
-        }
-        ]
+        posts:[]
       }
+    }
+
+    componentDidMount() {
+      axios
+      .get("http://127.0.0.1:8000/api/posts/")
+      .then(res => this.setState({posts:res.data}))
+      .catch(err => console.log(err));
     }
   
   
   render() {
     const posts_list = this.state.posts.map((post) => {
-      return <Post key={post.id} post={post} />
+      return <Post key={post.pk} post={post} />
     }
     )
     

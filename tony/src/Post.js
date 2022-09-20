@@ -1,8 +1,8 @@
 import './Post.css';
 import React from 'react';
 import PostHeader from './PostHeader';
-import img from './assets/images/logo192.png'
 import PostButtons from './PostButtons';
+import PostImage from './PostImage';
 
 class Post extends React.Component {
     constructor(props){
@@ -15,15 +15,14 @@ class Post extends React.Component {
     };
 
     render() {
+
       return (
         <div className="post">
             <PostHeader post={this.state}/>
             <div className="post_text">
                 {this.state.content}
             </div>
-            <div className="post_image">
-                <img src={img} alt="Post"></img>
-            </div>
+            <PostImage media={this.state.media} />
             <div className="post_reactions">
                 {this.state.likes} like this
             </div>

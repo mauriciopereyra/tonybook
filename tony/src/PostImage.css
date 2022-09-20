@@ -1,0 +1,7 @@
+.post_image {
+    max-height: 50%;
+}
+
+.post_image img {
+    max-height: 30vh;
+}
