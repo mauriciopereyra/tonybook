@@ -8,7 +8,7 @@ class PostsList extends React.Component {
       super(props)
       this.state = {
         posts:[],
-        users:[],
+        users:props.users,
       }
     }
 
