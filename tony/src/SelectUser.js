@@ -1,41 +1,21 @@
 import React from 'react';
 
 class SelectUser extends React.Component {
-  state = {
-    options: [
-      {
-        name: 'Mauricio',
-        value: '0',
-      },
-      {
-        name: 'Oum',
-        value: '1',
-      },
-    ],
-    name: 'Mauricio',
-    value: '0',
-  };
-
-  handleChange = (event) => {
-    this.setState({ 
-      value: event.target.value,
-      name: event.target.selectedOptions[0].innerHTML,
-    });
-  };
+  constructor(props){
+    super(props)
+  }
 
   render() {
-    const { options, name, value } = this.state;
 
     return (
       <>
-        <select onChange={this.handleChange} value={value}>
-          {options.map(item => (
-            <option key={item.value} value={item.value}>
-              {item.name}
+        <select>
+          {/* {this.props.users.map(user => (
+            <option key={user.pk} value={user.pk}>
+              {user.name}
             </option>
-          ))}
+          ))} */}
         </select>
-        <h1>Current user: {name}</h1>
       </>
     );
   }
