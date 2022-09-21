@@ -9,7 +9,9 @@ from .serializers import *
 @api_view(['GET', 'POST'])
 def posts_list(request):
     if request.method == 'GET':
-        data = Post.objects.all()
+        data = Post.objects.all().order_by('-date_posted')
+        for post in data:
+            post.date_posted = post.date_posted.strftime('%d/%m/%Y %H:%M')
 
         serializer = PostSerializer(data, context={'request': request}, many=True)
 

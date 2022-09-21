@@ -11,15 +11,17 @@ class PostsList extends React.Component {
       return <Post key={post.pk} post={post}  
       user={
         this.props.users.find(function (x) {
-          return x.id === post.user.pk;
+          return x.pk === post.user;
       })
     }     
       />
     }
     )
-    
+  
+
       return (
     <div className="posts_list">
+      <h1>{this.props.loggedUserId}</h1>
         {posts_list}
       </div>
       )

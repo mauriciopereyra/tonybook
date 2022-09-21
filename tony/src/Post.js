@@ -19,7 +19,7 @@ class Post extends React.Component {
 
     likePost = () => {
         axios.post('http://192.168.1.107:8000/api/reactions/', {
-            user: 1,
+            user: 1, // !!!!!
             post: this.props.post.pk,
             type: 1
           })
@@ -46,7 +46,7 @@ class Post extends React.Component {
     }
 
     userInLikes = (like) => {
-        if(like.user === 1) {return true}
+        if(like.user === 1) {return true} // !!!!!
     }
 
     componentDidMount() {

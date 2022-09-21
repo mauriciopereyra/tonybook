@@ -8,11 +8,13 @@ import axios from 'axios';
 class App extends React.Component {
 constructor(props){
   super(props)
-  this.state = {loggedUser:null,posts:[],users:[]}
+  this.state = {loggedUserId:1,posts:[],users:[]}
 }
 
-changeUser = (user) => {
-  this.setState({loggedUser:user})
+changeUser = (pk) => {
+  if (this.state.users){
+      this.setState({loggedUserId:pk})
+  }
 }
 
 componentDidMount() {
@@ -32,10 +34,11 @@ componentDidMount() {
 
 
 render() {
+
   return (
   <div className='wrapper'>
-      <><SelectUser/></>
-      <><PostsList users={this.state.users} posts={this.state.posts}/></>
+      <><SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser}/></>
+      <><PostsList users={this.state.users} posts={this.state.posts} loggedUserId={this.state.loggedUserId}/></>
   </div>
   );
 }

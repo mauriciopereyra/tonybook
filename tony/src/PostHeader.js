@@ -14,7 +14,7 @@ class PostHeader extends React.Component {
             <div className='name_date_wrapper'>
                 <div className='user'>{this.props.user.name}</div>
                 <div className='date'>{this.props.post.date_posted}</div>
-                <div className='privacy'>{this.props.post.privacy}</div>
+                {/* <div className='privacy'>{this.props.post.privacy}</div> */}
             </div> 
             <div className='settings'>==</div>
         </div>
