@@ -11,7 +11,8 @@ class Post extends React.Component {
         super(props)
         this.state = {
             post: props.post,
-            likes: 0,
+            likes: [],
+            liked: false,
         }
     };
 
@@ -20,10 +21,26 @@ class Post extends React.Component {
     };
 
     getLikes = () => {
-        axios
-        .get("http://127.0.0.1:8000/api/reactions/"+this.state.post.pk)
-        .then(res => this.setState({likes:res.data.length}))
-        .catch(err => console.log(err));
+        return new Promise((resolve) => {
+            axios
+            .get("http://127.0.0.1:8000/api/reactions/"+this.state.post.pk)
+            .then(res => this.setState({likes:res.data}))
+            .then(res => this.checkLiked())
+            .catch(err => console.log(err));
+            resolve();
+        });
+    }
+
+    checkLiked = () => {
+        if (this.state.likes.filter(this.userInLikes).length){
+            this.setState({liked:true})
+        } else {
+            this.setState({liked:false})
+        }
+    }
+
+    userInLikes = (like) => {
+        if(like.user === 1) {return true}
     }
 
     componentDidMount() {
@@ -40,7 +57,7 @@ class Post extends React.Component {
             </div>
             <PostImage media={this.state.post.media} />
             <PostReactions likes={this.state.likes} />
-            <PostButtons likePost={this.likePost}/>
+            <PostButtons likePost={this.likePost} liked={this.state.liked}/>
             <div className="post_comments">
                 Comments list
             </div>

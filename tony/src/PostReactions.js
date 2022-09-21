@@ -7,7 +7,7 @@ class PostReactions extends React.Component {
     render() {
       return (
         <div className="post_reactions">
-            {this.props.likes} like this
+            {this.props.likes.length} like this
         </div>
       )
     }

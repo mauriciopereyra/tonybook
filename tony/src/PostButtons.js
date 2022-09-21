@@ -3,11 +3,20 @@ import React from 'react';
 
 class PostButtons extends React.Component {
 
+    setLiked(){
+        if (this.props.liked === true){
+            return <b>Liked</b>
+        } else {
+            return "Like"
+        }
+    }
+
     render() {
-      return (
+
+        return (
         <div className="post_buttons">
             <button onClick={this.props.likePost}>
-                Like
+                {this.setLiked()}
             </button>
             <button>
                 Comment
