@@ -17,18 +17,23 @@ class Post extends React.Component {
     };
 
     likePost = () => {
-        this.setState({likes:this.state.likes+1})
+        axios.post('http://127.0.0.1:8000/api/reactions/', {
+            user: 1,
+            post: this.props.post.pk,
+            type: 1
+          })
+          .then(function (response) {console.log(response);})
+          .catch(function (error) {console.log(error);});
+          setTimeout(this.getLikes,100)
+          
     };
 
     getLikes = () => {
-        return new Promise((resolve) => {
             axios
             .get("http://127.0.0.1:8000/api/reactions/"+this.state.post.pk)
             .then(res => this.setState({likes:res.data}))
-            .then(res => this.checkLiked())
             .catch(err => console.log(err));
-            resolve();
-        });
+            setTimeout(this.checkLiked,100)
     }
 
     checkLiked = () => {

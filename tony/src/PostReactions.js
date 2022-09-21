@@ -3,7 +3,6 @@ import './PostReactions.css'
 
 class PostReactions extends React.Component {
 
-
     render() {
       return (
         <div className="post_reactions">
