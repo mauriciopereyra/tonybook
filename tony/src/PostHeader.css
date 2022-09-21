@@ -19,6 +19,11 @@
     background-color: antiquewhite;
 }
 
+.avatar img {
+    width: 100%;
+    height: 100%;
+}
+
 .name_date_wrapper {
     display: inline-block;
     margin-left: 10px;

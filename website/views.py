@@ -77,3 +77,15 @@ def post_reactions(request, pk=0):
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def users(request):
+    try:
+        users = User.objects.all()
+    except Reaction.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = UserSerializer(users, context={'request': request}, many=True)
+        return Response(serializer.data)
