@@ -32,9 +32,16 @@ componentDidMount() {
 }
 
 
+getLoggedUser = () => {
+  if (this.state.users){
+      this.state.users.find(function (x) {
+        return x.pk == this.state.loggedUserId;
+    })
+  }
+}
 
 render() {
-  console.log(this.getLoggedUser())
+  // console.log(this.getLoggedUser())
   return (
   <div className='wrapper'>
       <><SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser}/></>
