@@ -14,12 +14,13 @@ class Post extends React.Component {
             likes: [],
             liked: false,
             user: props.user,
+            loggedUserId: props.loggedUserId,
         }
     };
 
     likePost = () => {
         axios.post('http://192.168.1.107:8000/api/reactions/', {
-            user: 1, // !!!!!
+            user: this.props.loggedUserId, // !!!!!
             post: this.props.post.pk,
             type: 1
           })

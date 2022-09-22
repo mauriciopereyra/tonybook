@@ -37,6 +37,7 @@ render() {
 
   return (
   <div className='wrapper'>
+      <><h1>Logged user is {this.state.loggedUserId}</h1></>
       <><SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser}/></>
       <><PostsList users={this.state.users} posts={this.state.posts} loggedUserId={this.state.loggedUserId}/></>
   </div>
