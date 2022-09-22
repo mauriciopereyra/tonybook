@@ -2,8 +2,12 @@
 .post {
     margin: 0 auto 10px;
     display: block;
-    background: rgb(195, 195, 250);
+    background: white;
     padding: 15px 20px;
+    border: solid rgb(203, 203, 203) 0.5px;
+    box-shadow: rgb(203, 203, 203) 0.5px 0.5px 0.5px;
+    border-radius: 10px;
+
 }
 
 .post_image {

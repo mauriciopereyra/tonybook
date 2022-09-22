@@ -1,6 +1,7 @@
 import './App.css';
 import PostsList from './PostsList.js'
 import SelectUser from './SelectUser.js'
+import CreatePost from './CreatePost.js'
 import React from 'react';
 import axios from 'axios'; 
 
@@ -33,11 +34,11 @@ componentDidMount() {
 
 
 render() {
-
+  console.log(this.getLoggedUser())
   return (
   <div className='wrapper'>
-      <><h1>Logged user is {this.state.loggedUserId}</h1></>
       <><SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser}/></>
+      <><CreatePost loggedUserId={this.state.loggedUserId}/></>
       <><PostsList users={this.state.users} posts={this.state.posts} loggedUserId={this.state.loggedUserId}/></>
   </div>
   );

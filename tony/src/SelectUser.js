@@ -1,4 +1,5 @@
 import React from 'react';
+import './SelectUser.css'
 
 class SelectUser extends React.Component {
 
@@ -20,7 +21,7 @@ class SelectUser extends React.Component {
 
     return (
       <>
-        <select onChange={this.updateUser} value={this.state.selectedUserId}>
+        <select className='SelectUser' onChange={this.updateUser} value={this.state.selectedUserId}>
           {this.props.users.map(user => (
             <option key={user.pk} value={user.pk}>
               {user.name}
