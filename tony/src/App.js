@@ -26,7 +26,6 @@ componentDidMount() {
   axios
   .get("http://192.168.1.107:8000/api/users/")
   .then(res => this.setState({users:res.data}))
-  .then(() => console.log(this.state.users))
   .catch(err => console.log(err));
 
 }

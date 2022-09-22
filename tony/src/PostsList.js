@@ -21,7 +21,6 @@ class PostsList extends React.Component {
 
       return (
     <div className="posts_list">
-      <h1>{this.props.loggedUserId}</h1>
         {posts_list}
       </div>
       )

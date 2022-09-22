@@ -10,11 +10,7 @@ class Post extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            post: props.post,
             likes: [],
-            liked: false,
-            user: props.user,
-            loggedUserId: props.loggedUserId,
         }
     };
 
@@ -24,7 +20,7 @@ class Post extends React.Component {
             post: this.props.post.pk,
             type: 1
           })
-          .then(function (response) {console.log(response);})
+        //   .then(function (response) {console.log(response);})
           .catch(function (error) {console.log(error);});
           setTimeout(this.getLikes,100)
           
@@ -32,39 +28,30 @@ class Post extends React.Component {
 
     getLikes = () => {
             axios
-            .get("http://192.168.1.107:8000/api/reactions/"+this.state.post.pk)
+            .get("http://192.168.1.107:8000/api/reactions/"+this.props.post.pk)
             .then(res => this.setState({likes:res.data}))
             .catch(err => console.log(err));
             setTimeout(this.checkLiked,100)
     }
 
-    checkLiked = () => {
-        if (this.state.likes.filter(this.userInLikes).length){
-            this.setState({liked:true})
-        } else {
-            this.setState({liked:false})
-        }
-    }
 
-    userInLikes = (like) => {
-        if(like.user === 1) {return true} // !!!!!
-    }
 
     componentDidMount() {
         this.getLikes()
+
       }
 
     render() {
 
       return (
         <div className="post">
-            <PostHeader post={this.state.post} user={this.props.user}/>
+            <PostHeader post={this.props.post} user={this.props.user}/>
             <div className="post_content">
-                {this.state.post.content}
+                {this.props.post.content}
             </div>
-            <PostImage media={this.state.post.media} />
+            <PostImage media={this.props.post.media} />
             <PostReactions likes={this.state.likes} />
-            <PostButtons likePost={this.likePost} liked={this.state.liked}/>
+            <PostButtons likes={this.state.likes} likePost={this.likePost} checkLiked={this.checkLiked} loggedUserId={this.props.loggedUserId}/>
             <div className="post_comments">
                 Comments list
             </div>
