@@ -23,7 +23,6 @@ class Post extends React.Component {
         //   .then(function (response) {console.log(response);})
           .catch(function (error) {console.log(error);});
           setTimeout(this.getLikes,100)
-          
     };
 
     getLikes = () => {

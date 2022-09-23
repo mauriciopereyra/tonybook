@@ -12,10 +12,10 @@ class User(models.Model):
 
 class Post(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    content = models.TextField()
-    media = models.ImageField(default="",blank=True,null=True)
-    date_posted = models.DateTimeField()
-    privacy = models.CharField(max_length=50)
+    content = models.TextField(blank=True,null=True)
+    media = models.ImageField(default=None,blank=True,null=True)
+    date_posted = models.DateTimeField(auto_now_add=True)
+    privacy = models.CharField(max_length=50,default='public')
 
     def __str__(self):
         return "{} - {}".format(self.content,self.user) 

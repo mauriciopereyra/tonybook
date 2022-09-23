@@ -18,34 +18,33 @@ changeUser = (pk) => {
   }
 }
 
-componentDidMount() {
+getPosts = () => {
   axios
   .get("http://192.168.1.107:8000/api/posts/")
   .then(res => this.setState({posts:res.data}))
   .catch(err => console.log(err));
+}
 
+getUsers = () => {
   axios
   .get("http://192.168.1.107:8000/api/users/")
   .then(res => this.setState({users:res.data}))
   .catch(err => console.log(err));
+}
 
+componentDidMount() {
+  this.getPosts()
+  this.getUsers()
 }
 
 
-getLoggedUser = () => {
-  if (this.state.users){
-      this.state.users.find(function (x) {
-        return x.pk == this.state.loggedUserId;
-    })
-  }
-}
+
 
 render() {
-  // console.log(this.getLoggedUser())
   return (
   <div className='wrapper'>
-      <><SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser}/></>
-      <><CreatePost loggedUserId={this.state.loggedUserId}/></>
+      <><SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /></>
+      <><CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts}/></>
       <><PostsList users={this.state.users} posts={this.state.posts} loggedUserId={this.state.loggedUserId}/></>
   </div>
   );

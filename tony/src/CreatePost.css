@@ -1,18 +1,24 @@
 #CreatePost {
     background-color: white;
-    padding: 5px;
+    padding: 15px 20px;
     border: solid rgb(203, 203, 203) 0.5px;
     box-shadow: rgb(203, 203, 203) 0.5px 0.5px 0.5px;
     border-radius: 10px;
+}
+
+#CreatePost .content{
+    display: flex;
+    margin-bottom: 10px;
 }
 
 #CreatePost input, #CreatePost textarea, .ImageLabel, #CreatePost img {
     margin-bottom: 10px;
 }
 
-#CreatePost input, #CreatePost textarea, #CreatePost img{
+#CreatePost input {
     width: 100%;
 }
+
 
 #CreatePost input[type="submit"], .ImageLabel button{
     width: 40%;
@@ -23,13 +29,17 @@
 }
 
 #CreatePost textarea {
-    width: 99%;
-    height:4em;
+    display: inline-block;
+    height:2.1em;
     transition: all ease 0.1s;
+    flex-grow: 100;
+    margin-left: 10px;
+    border-radius: 20px;
+    padding: 0.8em;
 }
 
 #CreatePost textarea:focus  {
-    height:7em;
+    /* height:7em; */
 }
 
 #CreatePost input[type="file"]{
@@ -42,4 +52,8 @@
 
 #CreatePost img {
     display: none;
+    margin: 0 auto;
+    max-height: 25em;
+    max-width: 100%;
+    margin-bottom: 20px;
 }

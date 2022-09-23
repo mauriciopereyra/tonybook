@@ -13,8 +13,8 @@
 
 .avatar {
     display: inline-block;
-    height: 50px;
-    width: 50px;
+    height: 3.2em;
+    width: 3.2em;
     border-radius: 100%;
     background-color: antiquewhite;
 }
