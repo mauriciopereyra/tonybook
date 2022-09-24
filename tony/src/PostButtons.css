@@ -2,8 +2,36 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    border-top: #d6d8da solid 2px;
+    border-bottom: #d6d8da solid 2px;
+    padding: 5px 0;
 }
 
-.post_buttons button {
-    width: 30%;
+.button {
+    display: inline;
+    width: 100%;
+    font-size: 1em;
+    color: gray;
+    /* height: 2em; */
+    line-height: 2.5em;
+    margin-right: 5px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+@media (hover: hover) {
+    .button:hover {
+        background-color: #e5e5e5;
+    }
+}
+
+.button:last-child{
+    margin-right: 0px;
+}
+
+.button b {
+    color: rgb(55, 143, 178);
 }

@@ -36,15 +36,15 @@ class PostButtons extends React.Component {
     render() {
         return (
         <div className="post_buttons">
-            <button onClick={this.props.likePost}>
+            <div className='button' onClick={this.props.likePost}>
                 {this.checkLiked()}
-            </button>
-            <button>
+            </div>
+            <div className='button'>
                 Comment
-            </button>
-            <button>
+            </div>
+            <div className='button'>
                 Share
-            </button>
+            </div>
         </div>
       )
     }

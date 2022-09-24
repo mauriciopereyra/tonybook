@@ -4,11 +4,15 @@
 .privacy
 .settings */
 
-.header {
+.top_row {
     height: 50px;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+}
+
+.post_header {
+    padding: 15px 20px;
 }
 
 .avatar {
@@ -52,4 +56,19 @@
 
 .settings button {
     margin-bottom: 100%;
+    line-height: 1.5em;
+    color: gray;
+    font-weight: bolder;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    height: 25px;
+    width: 25px;
+}
+
+@media (hover: hover) {
+    .settings button:hover {
+        background-color: #4267B2;
+        color: white;
+    }
 }

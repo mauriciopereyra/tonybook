@@ -1,24 +1,21 @@
 
 .post {
-    margin: 0 auto 10px;
+    margin: 0 auto 15px;
     display: block;
     background: white;
-    padding: 15px 20px;
+    /* padding: 15px 20px; */
     border: solid rgb(203, 203, 203) 0.5px;
     box-shadow: rgb(203, 203, 203) 0.5px 0.5px 0.5px;
     border-radius: 10px;
-
+}
+.post:first-child {
+    margin-top: 15px;
 }
 
-.post_image {
-    text-align: center;
-    margin-bottom: 10px;
+.post_footer {
+    padding: 15px 20px;
 }
 
 .post_reactions {
-    margin-bottom: 10px;
-}
-
-.post_content {
     margin-bottom: 10px;
 }

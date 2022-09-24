@@ -23,7 +23,7 @@ removePostConfirm = () => {
 
     render() {
       return (
-        <div className='header'>
+        <div className='top_row'>
             <div className='avatar' style={{
               backgroundImage:`url(${this.props.user.avatar})`,
               backgroundSize: 'cover',
@@ -36,6 +36,7 @@ removePostConfirm = () => {
                 {/* <div className='privacy'>{this.props.post.privacy}</div> */}
             </div> 
             <div className='settings'><button onClick={this.removePostConfirm}>X</button></div>
+            
         </div>
       )
     }

@@ -11,7 +11,9 @@ constructor(props){
 
 
 handleSubmit = async(event) => {
-  event.preventDefault()
+  if(!document.getElementsByName('content')[0].value && document.getElementsByName('media')[0].files.length == 0){return false}
+  
+
   const formData = new FormData();
   formData.append("user", this.props.loggedUserId);
   formData.append("content", document.getElementsByName('content')[0].value);
@@ -90,10 +92,12 @@ render() {
       </div>
         <img id="imagePreview" src='adas'></img>
         <label className='ImageLabel'>
-            <button onClick={this.handleClick}>Add picture</button>
             <input onChange={this.imagePreview} id='fileUpload' name='media' type="file" accept="image/*"/>
         </label>
-        <input type="submit" value="Post"></input>
+        <div className='post_buttons'>
+          <div className='button' onClick={this.handleClick}>Add picture</div>
+          <div className='button' onClick={this.handleSubmit}>Post</div>
+        </div>
     </form>
   );
 }

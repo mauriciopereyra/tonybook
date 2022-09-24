@@ -50,18 +50,22 @@ class Post extends React.Component {
 
       return (
         <div className="post">
-            <PostHeader post={this.props.post} user={this.props.user}  getPosts={this.props.getPosts}/>
-            <div className="post_content">
-                {this.props.post.content}
+            <div className='post_header'>
+              <PostHeader post={this.props.post} user={this.props.user}  getPosts={this.props.getPosts}/>
+              <div className="post_content">
+                  {this.props.post.content}
+              </div>
             </div>
+
             {this.media()}
-            {/* <PostImage media={this.props.post.media} /> */}
-            
-            <PostReactions likes={this.state.likes} />
-            <PostButtons likes={this.state.likes} likePost={this.likePost} checkLiked={this.checkLiked} loggedUserId={this.props.loggedUserId}/>
-            <div className="post_comments">
-                Comments list
-            </div>
+
+            <div className='post_footer'>
+              <PostReactions likes={this.state.likes} />
+              <PostButtons likes={this.state.likes} likePost={this.likePost} checkLiked={this.checkLiked} loggedUserId={this.props.loggedUserId}/>
+              <div className="post_comments">
+                  Comments list
+              </div>              
+            </div>            
         </div>
       )
     }
