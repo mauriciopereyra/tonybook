@@ -15,12 +15,13 @@ class Post extends React.Component {
     };
 
     likePost = () => {
+      console.log(this.props.post.pk)
         axios.post('http://192.168.1.107:8000/api/reactions/', {
             user: this.props.loggedUserId, // !!!!!
             post: this.props.post.pk,
             type: 1
           })
-        //   .then(function (response) {console.log(response);})
+          .then(function (response) {console.log(response);})
           .catch(function (error) {console.log(error);});
           setTimeout(this.getLikes,100)
     };

@@ -18,6 +18,7 @@ def posts_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        print(request.data)
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
