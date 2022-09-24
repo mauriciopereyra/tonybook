@@ -49,3 +49,7 @@
 .settings {
     margin-left: auto;
 }
+
+.settings button {
+    margin-bottom: 100%;
+}

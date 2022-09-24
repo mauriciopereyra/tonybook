@@ -45,7 +45,7 @@ render() {
   <div className='wrapper'>
       <><SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /></>
       <><CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts}/></>
-      <><PostsList users={this.state.users} posts={this.state.posts} loggedUserId={this.state.loggedUserId}/></>
+      <><PostsList users={this.state.users} posts={this.state.posts} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts}/></>
   </div>
   );
 }

@@ -1,8 +1,11 @@
 .post_image {
-    max-height: 50%;
+    background-color: black;
+}
+
+.post_image, .post_image img {
+    max-height: 25em;
 }
 
 .post_image img {
-    max-height: 25em;
     max-width: 100%;
 }

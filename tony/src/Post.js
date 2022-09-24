@@ -50,7 +50,7 @@ class Post extends React.Component {
 
       return (
         <div className="post">
-            <PostHeader post={this.props.post} user={this.props.user}/>
+            <PostHeader post={this.props.post} user={this.props.user}  getPosts={this.props.getPosts}/>
             <div className="post_content">
                 {this.props.post.content}
             </div>
