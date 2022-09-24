@@ -31,10 +31,15 @@
 
 .user {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
+    font-weight: bold;
 }
 .date, .privacy {
     display: inline-block;
+}
+
+.date {
+    font-size: 0.8em;
 }
 
 .privacy{

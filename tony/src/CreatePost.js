@@ -9,26 +9,38 @@ constructor(props){
 
 }
 
-// 'pk', 'user', 'content', 'media','date_posted', 'privacy'
-createPost = () => {
-  if(document.getElementsByName('content')[0].value)
-  axios.post('http://192.168.1.107:8000/api/posts/', {
-      user: this.props.loggedUserId, // !!!!!
-      content: document.getElementsByName('content')[0].value,
-      // media: document.getElementsByName('media')[0].files,
-      privacy: 'public'
-    })
-  //   .then(function (response) {console.log(response);})
-    .catch(function (error) {console.log(error);});
-    setTimeout(this.props.getPosts,100)
-};
+
+handleSubmit = async(event) => {
+  event.preventDefault()
+  const formData = new FormData();
+  formData.append("user", this.props.loggedUserId);
+  formData.append("content", document.getElementsByName('content')[0].value);
+  formData.append("privacy", 'public');
+  if(document.getElementsByName('media')[0].files.length){
+    formData.append("media", document.getElementsByName('media')[0].files[0]);  
+  }
+  try {
+    const response = await axios({
+      method: "post",
+      url: "http://192.168.1.107:8000/api/posts/",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    document.getElementById('CreatePost').reset()
+    document.getElementById('imagePreview').style.display = 'none'
+    document.getElementById('imagePreview').src = ''
+  } catch(error) {
+    console.log(error)
+  }
+  setTimeout(this.props.getPosts,100)
+}
 
 
 
-handleSubmit = (event) => {
-    event.preventDefault()
-    this.createPost()
-  };
+// handleSubmit = (event) => {
+//     event.preventDefault()
+//     this.createPost()
+//   };
 
 handleClick(event) {
     event.preventDefault()

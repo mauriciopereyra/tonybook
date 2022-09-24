@@ -41,6 +41,11 @@ class Post extends React.Component {
 
       }
 
+      media = () => {if(this.props.post.media){
+        return <PostImage media={this.props.post.media} />
+      }
+    }
+
     render() {
 
       return (
@@ -49,7 +54,9 @@ class Post extends React.Component {
             <div className="post_content">
                 {this.props.post.content}
             </div>
-            <PostImage media={this.props.post.media} />
+            {this.media()}
+            {/* <PostImage media={this.props.post.media} /> */}
+            
             <PostReactions likes={this.state.likes} />
             <PostButtons likes={this.state.likes} likePost={this.likePost} checkLiked={this.checkLiked} loggedUserId={this.props.loggedUserId}/>
             <div className="post_comments">
