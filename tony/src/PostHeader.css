@@ -20,7 +20,8 @@
     height: 3.2em;
     width: 3.2em;
     border-radius: 100%;
-    background-color: antiquewhite;
+    background-size: cover;
+    background-position: center;
 }
 
 .avatar img {

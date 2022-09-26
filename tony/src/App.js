@@ -28,6 +28,14 @@ setLoggedUser = () => {
     } 
   }
 
+  getUserFromId = (pk) => {
+      for (let i = 0; i < this.state.users.length; i++) {
+        if (this.state.users[i].pk == pk){
+          return this.state.users[i]
+        }
+      }
+  }
+
 
 changeUser = (pk) => {
 
@@ -72,7 +80,7 @@ render() {
   <div className='wrapper'>
       <><SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /></>
       <><CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} /></>
-      <><PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts}/></>
+      <><PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/></>
   </div>
   );
 }

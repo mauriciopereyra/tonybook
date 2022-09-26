@@ -11,9 +11,7 @@ class UserInput extends React.Component {
         return (
             <div className='userInput'>
             <div className='avatar' style={{
-                    backgroundImage:`url(${this.props.loggedUser.avatar})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    backgroundImage:`url(${this.props.loggedUser.avatar})`
                     }}>
             </div>
             <input name="user" type="hidden" value={this.props.loggedUser.pk}></input>

@@ -1,10 +1,14 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import './Comments.css'
+import './Comments_list.css'
 import UserInput from './UserInput';
 import axios from 'axios';
+import Comment from './Comment'
 
-class Comments extends React.Component {
+class Comments_list extends React.Component {
+    constructor(props){
+        super(props)
+        this.renderCommentsList = this.renderCommentsList.bind(this);
+    }
 
     postComment = (content) => {
         console.log(this.props.post.pk)
@@ -13,6 +17,7 @@ class Comments extends React.Component {
               post: this.props.post.pk,
               content: content,
             })
+            .then(() => {this.props.getComments()})
             .then(function (response) {})
             .catch(function (error) {});
       };
@@ -36,9 +41,17 @@ class Comments extends React.Component {
         this.newCommentBinding(this)
     }
 
+    renderCommentsList(comment){
+        return <Comment text={comment.content} key={comment.pk} user={this.props.getUserFromId(comment.user)}/>
+    }
+    
+
     render(){
+        var comments_list = this.props.comments.map(this.renderCommentsList)
+
         return (
             <form className='post_comments'>
+                {comments_list}
                 <UserInput loggedUser={this.props.loggedUser} placeholder='Write a comment'/>
             </form>
         )
@@ -46,4 +59,4 @@ class Comments extends React.Component {
 }
 
 
-export default Comments
+export default Comments_list

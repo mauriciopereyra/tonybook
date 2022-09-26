@@ -5,13 +5,14 @@ import PostButtons from './PostButtons';
 import PostImage from './PostImage';
 import PostReactions from './PostReactions';
 import axios from 'axios'; 
-import Comments from './Comments'
+import Comments_list from './Comments_list'
 
 class Post extends React.Component {
     constructor(props){
         super(props)
         this.state = {
             likes: [],
+            comments: [],
         }
     };
 
@@ -35,11 +36,16 @@ class Post extends React.Component {
             setTimeout(this.checkLiked,100)
     }
 
-
+    getComments = () => {
+      axios
+      .get(`http://192.168.1.107:8000/api/posts/${this.props.post.pk}/comments`)
+      .then(res => this.setState({comments:res.data}))
+      .catch(err => console.log(err));
+}
 
     componentDidMount() {
         this.getLikes()
-
+        this.getComments()
       }
 
       media = () => {if(this.props.post.media){
@@ -63,7 +69,7 @@ class Post extends React.Component {
             <div className='post_footer'>
               <PostReactions likes={this.state.likes} />
               <PostButtons likes={this.state.likes} likePost={this.likePost} checkLiked={this.checkLiked} loggedUser={this.props.loggedUser}/>
-              <Comments post={this.props.post} loggedUser={this.props.loggedUser} />         
+              <Comments_list post={this.props.post} loggedUser={this.props.loggedUser} comments={this.state.comments} getComments={this.getComments} user={this.props.user}  getUserFromId={this.props.getUserFromId}/>         
             </div>            
         </div>
       )
