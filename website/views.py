@@ -2,15 +2,19 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+import pytz
 
 from .models import Post, Reaction, User, Comment
 from .serializers import *
+
+tz = pytz.timezone('Asia/Bangkok')
 
 @api_view(['GET', 'POST'])
 def posts_list(request):
     if request.method == 'GET':
         data = Post.objects.all().order_by('-date_posted')
         for post in data:
+            post.date_posted = post.date_posted.replace(tzinfo=pytz.utc).astimezone(tz)
             post.date_posted = post.date_posted.strftime('%d/%m/%Y %H:%M')
 
         serializer = PostSerializer(data, context={'request': request}, many=True)
@@ -104,6 +108,10 @@ def comments(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
+        for comment in comments:
+            comment.date_posted = comment.date_posted.replace(tzinfo=pytz.utc).astimezone(tz)
+            comment.date_posted = comment.date_posted.strftime('%d/%m/%Y %H:%M')
+
         serializer = CommentSerializer(comments, context={'request': request}, many=True)
         return Response(serializer.data)
 

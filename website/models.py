@@ -1,5 +1,8 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
+
+print(timezone.now())
 
 # Create your models here.
 class User(models.Model):
@@ -14,7 +17,7 @@ class Post(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     content = models.TextField(blank=True,null=True)
     media = models.ImageField(default=None,blank=True,null=True)
-    date_posted = models.DateTimeField(auto_now_add=True)
+    date_posted = models.DateTimeField(default=timezone.now)
     privacy = models.CharField(max_length=50,default='public')
 
     def __str__(self):
@@ -39,7 +42,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
     content = models.TextField()
-    date_posted = models.DateTimeField(auto_now_add=True)
+    date_posted = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return "{} - {}".format(self.content,self.user) 
