@@ -1,7 +1,7 @@
 import './CreatePost.css';
 import React, { isValidElement } from 'react';
 import axios from 'axios';
-
+import UserInput from './UserInput';
 
 class CreatePost extends React.Component {
 constructor(props){
@@ -80,16 +80,7 @@ render() {
 
   return (
     <form id='CreatePost' onSubmit={this.handleSubmit}>
-      <div className='content'>
-        <div className='avatar' style={{
-                backgroundImage:`url(${this.setLoggedUser().avatar})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                }}>
-        </div>
-          <input name="user" type="hidden" value={this.props.loggedUserId}></input>
-          <textarea name="content" placeholder='Whats on your mind'></textarea>
-      </div>
+        <UserInput loggedUserId={this.props.loggedUserId} setLoggedUser={this.setLoggedUser}/>
         <img id="imagePreview" src='adas'></img>
         <label className='ImageLabel'>
             <input onChange={this.imagePreview} id='fileUpload' name='media' type="file" accept="image/*"/>

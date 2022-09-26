@@ -5,6 +5,7 @@ import PostButtons from './PostButtons';
 import PostImage from './PostImage';
 import PostReactions from './PostReactions';
 import axios from 'axios'; 
+import UserInput from './UserInput';
 
 class Post extends React.Component {
     constructor(props){
@@ -64,6 +65,7 @@ class Post extends React.Component {
               <PostButtons likes={this.state.likes} likePost={this.likePost} checkLiked={this.checkLiked} loggedUserId={this.props.loggedUserId}/>
               <div className="post_comments">
                   Comments list
+                  {/* <UserInput /> */}
               </div>              
             </div>            
         </div>

@@ -9,8 +9,24 @@ import axios from 'axios';
 class App extends React.Component {
 constructor(props){
   super(props)
-  this.state = {loggedUserId:1,posts:[],users:[]}
+  this.state = {loggedUserId:1,posts:[],users:[],loggedUser:null}
 }
+
+
+// setLoggedUser = () => {
+//   var loggedUser
+//     if(this.state.users.length){
+//       for (let i = 0; i < this.state.users.length; i++) {
+//         if (this.state.users[i].pk == this.state.loggedUserId){
+//           loggedUser = this.state.users[i]
+//         }
+//       }
+//       return loggedUser
+//     } else {
+//       return loggedUser = {pk: 1, user: 1, name: 'mauri 🇦🇷 🐈‍⬛', avatar: 'http://192.168.1.107:8000/media/djangounchained-leoblog630-jpg_225139_qlxhY4y.jpg'}
+//     }
+//   }
+
 
 changeUser = (pk) => {
   if (this.state.users){
