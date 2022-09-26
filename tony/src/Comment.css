@@ -10,6 +10,7 @@
     margin-left: 0.5em;
     padding: 0.6em;
     background-color: #f0f2f5;
+    max-width: 80%;
 }
 .comment_content p {
     margin: 0;
