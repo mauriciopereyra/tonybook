@@ -4,7 +4,10 @@ import './UserInput.css'
 class UserInput extends React.Component {
 
 
+
     render(){
+
+
         return (
             <div className='userInput'>
             <div className='avatar' style={{

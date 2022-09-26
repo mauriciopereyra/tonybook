@@ -5,7 +5,7 @@ import PostButtons from './PostButtons';
 import PostImage from './PostImage';
 import PostReactions from './PostReactions';
 import axios from 'axios'; 
-import UserInput from './UserInput';
+import Comments from './Comments'
 
 class Post extends React.Component {
     constructor(props){
@@ -50,7 +50,7 @@ class Post extends React.Component {
     render() {
 
       return (
-        <div className="post">
+        <div className="post" data-post-id={this.props.post.pk}>
             <div className='post_header'>
               <PostHeader post={this.props.post} user={this.props.user}  getPosts={this.props.getPosts} loggedUser={this.props.loggedUser}/>
               <div className="post_content">
@@ -63,9 +63,7 @@ class Post extends React.Component {
             <div className='post_footer'>
               <PostReactions likes={this.state.likes} />
               <PostButtons likes={this.state.likes} likePost={this.likePost} checkLiked={this.checkLiked} loggedUser={this.props.loggedUser}/>
-              <div className="post_comments">
-                  <UserInput loggedUser={this.props.loggedUser} placeholder='Write a comment'/>
-              </div>              
+              <Comments post={this.props.post} loggedUser={this.props.loggedUser} />         
             </div>            
         </div>
       )
