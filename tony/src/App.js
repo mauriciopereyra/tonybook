@@ -9,28 +9,34 @@ import axios from 'axios';
 class App extends React.Component {
 constructor(props){
   super(props)
-  this.state = {loggedUserId:1,posts:[],users:[],loggedUser:null}
+  this.state = {loggedUserId:1,posts:[],users:[],
+    loggedUser:{pk: 1, user: 1, name: 'mauri 🇦🇷 🐈‍⬛', avatar: 'http://192.168.1.107:8000/media/djangounchained-leoblog630-jpg_225139_qlxhY4y.jpg'}
+  }
 }
 
 
-// setLoggedUser = () => {
-//   var loggedUser
-//     if(this.state.users.length){
-//       for (let i = 0; i < this.state.users.length; i++) {
-//         if (this.state.users[i].pk == this.state.loggedUserId){
-//           loggedUser = this.state.users[i]
-//         }
-//       }
-//       return loggedUser
-//     } else {
-//       return loggedUser = {pk: 1, user: 1, name: 'mauri 🇦🇷 🐈‍⬛', avatar: 'http://192.168.1.107:8000/media/djangounchained-leoblog630-jpg_225139_qlxhY4y.jpg'}
-//     }
-//   }
+setLoggedUser = () => {
+  var loggedUser
+    if(this.state.users.length){
+      for (let i = 0; i < this.state.users.length; i++) {
+        if (this.state.users[i].pk == this.state.loggedUserId){
+          loggedUser = this.state.users[i]
+        }
+      }
+      this.setState({loggedUser:loggedUser})
+      return loggedUser
+    } 
+  }
 
 
 changeUser = (pk) => {
+
   if (this.state.users){
-      this.setState({loggedUserId:pk})
+      new Promise((resolve, reject) => {
+        this.setState({loggedUserId:pk})
+        resolve();
+      })
+      .then(() => {this.setLoggedUser()})      
   }
 }
 
@@ -42,26 +48,31 @@ getPosts = () => {
 }
 
 getUsers = () => {
-  axios
-  .get("http://192.168.1.107:8000/api/users/")
-  .then(res => this.setState({users:res.data}))
-  .catch(err => console.log(err));
+  return new Promise((resolve,reject) =>
+  {
+    axios
+    .get("http://192.168.1.107:8000/api/users/")
+    .then(res => {this.setState({users:res.data});resolve()})
+    .catch(err => {console.log(err);reject()});
+  })
 }
 
 componentDidMount() {
-  this.getPosts()
-  this.getUsers()
+  const onMount = async() => {
+    await this.getUsers()
+    this.setLoggedUser()
+    this.getPosts()
+  }
+  onMount()
 }
-
-
 
 
 render() {
   return (
   <div className='wrapper'>
       <><SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /></>
-      <><CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts}/></>
-      <><PostsList users={this.state.users} posts={this.state.posts} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts}/></>
+      <><CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} /></>
+      <><PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts}/></>
   </div>
   );
 }

@@ -6,10 +6,7 @@
     border-radius: 10px;
 }
 
-#CreatePost .content{
-    display: flex;
-    margin-bottom: 10px;
-}
+
 
 #CreatePost input, #CreatePost textarea, .ImageLabel, #CreatePost img {
     margin-bottom: 10px;
@@ -28,23 +25,7 @@
     float: right;
 }
 
-#CreatePost textarea {
-    background-color: rgb(241, 241, 241);
-    display: inline-block;
-    height:2.1em;
-    transition: all ease 0.1s;
-    flex-grow: 100;
-    margin-left: 10px;
-    border-radius: 20px;
-    padding: 0.8em;
-    border: none;
-}
 
-@media (hover: hover) {
-    #CreatePost textarea:hover {
-        background-color: rgb(217, 217, 217);
-    }
-}
 
 #CreatePost input[type="file"]{
     display: none;

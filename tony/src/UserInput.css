@@ -1,0 +1,39 @@
+@media (hover: hover) {
+    .userInput textarea:hover {
+        background-color: rgb(217, 217, 217);
+    }
+}
+
+
+.userInput textarea {
+    background-color: rgb(241, 241, 241);
+    display: inline-block;
+    height:2.1em;
+    transition: all ease 0.1s;
+    flex-grow: 100;
+    margin-left: 10px;
+    border-radius: 20px;
+    padding: 0.8em;
+    border: none;
+    font-size: 1.15em;
+}
+
+
+.userInput{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.post_comments .avatar {
+    height: 2.0em;
+    width: 2.0em;
+}
+
+.post_comments .userInput textarea {
+    height:1.5em;
+    padding: 0.5em 1em;
+}
+
+.post_comments .userInput {
+    align-items: center
+}

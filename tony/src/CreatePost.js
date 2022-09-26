@@ -60,19 +60,6 @@ imagePreview(event){
     }
 }
 
-setLoggedUser = () => {
-    var loggedUser
-      if(this.props.users.length){
-        for (let i = 0; i < this.props.users.length; i++) {
-          if (this.props.users[i].pk == this.props.loggedUserId){
-            loggedUser = this.props.users[i]
-          }
-        }
-        return loggedUser
-      } else {
-        return loggedUser = {pk: 1, user: 1, name: 'mauri 🇦🇷 🐈‍⬛', avatar: 'http://192.168.1.107:8000/media/djangounchained-leoblog630-jpg_225139_qlxhY4y.jpg'}
-      }
-    }
 
 
 
@@ -80,7 +67,7 @@ render() {
 
   return (
     <form id='CreatePost' onSubmit={this.handleSubmit}>
-        <UserInput loggedUserId={this.props.loggedUserId} setLoggedUser={this.setLoggedUser}/>
+        <UserInput loggedUser={this.props.loggedUser} placeholder="What's on your mind?"/>
         <img id="imagePreview" src='adas'></img>
         <label className='ImageLabel'>
             <input onChange={this.imagePreview} id='fileUpload' name='media' type="file" accept="image/*"/>

@@ -28,7 +28,7 @@ class PostButtons extends React.Component {
     }
 
     userInLikes = (like) => {
-        if(like.user == this.props.loggedUserId) {return true} // !!!!!
+        if(like.user == this.props.loggedUser.pk) {return true} // !!!!!
     }
 
     
