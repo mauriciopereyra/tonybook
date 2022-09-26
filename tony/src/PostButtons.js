@@ -31,6 +31,10 @@ class PostButtons extends React.Component {
         if(like.user == this.props.loggedUser.pk) {return true} // !!!!!
     }
 
+    commentClick (el) {
+        el.target.parentElement.parentElement.getElementsByClassName("userInput")[0].getElementsByTagName("textarea")[0].focus()
+    }
+
     
 
     render() {
@@ -39,7 +43,7 @@ class PostButtons extends React.Component {
             <div className='button' onClick={this.props.likePost}>
                 {this.checkLiked()}
             </div>
-            <div className='button'>
+            <div className='button' onClick={this.commentClick.bind(this)}>
                 Comment
             </div>
             <div className='button'>
