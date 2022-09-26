@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
-from .models import Post, Reaction, User
+from .models import Post, Reaction, User, Comment
 from .serializers import *
 
 @api_view(['GET', 'POST'])
@@ -92,3 +92,26 @@ def users(request):
     if request.method == 'GET':
         serializer = UserSerializer(users, context={'request': request}, many=True)
         return Response(serializer.data)
+
+
+
+
+@api_view(['GET','POST'])
+def comments(request, pk):
+    try:
+        comments = Comment.objects.filter(post=pk)
+    except Comment.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = CommentSerializer(comments, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+
+    elif request.method == 'POST':
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

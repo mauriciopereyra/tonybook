@@ -26,6 +26,7 @@ urlpatterns = [
     re_path(r'^api/posts/([0-9]+)$', views.posts_detail),
     re_path(r'^api/reactions/$', views.post_reactions),
     re_path(r'^api/reactions/([0-9]+)$', views.post_reactions),
+    re_path(r'^api/posts/([0-9]+)/comments$', views.comments),
     re_path(r'^api/users/$', views.users),
 ]
 
