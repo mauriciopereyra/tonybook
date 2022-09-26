@@ -22,6 +22,13 @@ removePostConfirm = () => {
 
 
     render() {
+
+      const removePostButton = () => {
+        if (this.props.loggedUser.pk == this.props.user.pk){
+          return <div className='settings'><button onClick={this.removePostConfirm}>X</button></div>
+        }
+      }
+
       return (
         <div className='top_row'>
             <div className='avatar' style={{
@@ -35,8 +42,7 @@ removePostConfirm = () => {
                 <div className='date'>{this.props.post.date_posted}</div>
                 {/* <div className='privacy'>{this.props.post.privacy}</div> */}
             </div> 
-            <div className='settings'><button onClick={this.removePostConfirm}>X</button></div>
-            
+            {removePostButton()}
         </div>
       )
     }
