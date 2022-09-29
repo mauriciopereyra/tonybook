@@ -10,9 +10,13 @@ from .serializers import *
 tz = pytz.timezone('Asia/Bangkok')
 
 @api_view(['GET', 'POST'])
-def posts_list(request):
+def posts_list(request,user=None):
     if request.method == 'GET':
-        data = Post.objects.all().order_by('-date_posted')
+        print(user)
+        if user == 'undefined':
+            data = Post.objects.all().order_by('-date_posted')
+        else:
+            data = Post.objects.filter(user__name=user).order_by('-date_posted')
         for post in data:
             post.date_posted = post.date_posted.replace(tzinfo=pytz.utc).astimezone(tz)
             post.date_posted = post.date_posted.strftime('%d/%m/%Y %H:%M')

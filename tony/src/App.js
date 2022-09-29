@@ -4,6 +4,7 @@ import SelectUser from './SelectUser.js'
 import CreatePost from './CreatePost.js'
 import React from 'react';
 import axios from 'axios'; 
+import { Routes, Route } from "react-router-dom"
 
 
 class App extends React.Component {
@@ -49,10 +50,23 @@ changeUser = (pk) => {
 }
 
 getPosts = () => {
-  axios
-  .get("http://192.168.1.107:8000/api/posts/")
-  .then(res => this.setState({posts:res.data}))
-  .catch(err => console.log(err));
+  const url = window.location.pathname;
+  const profile = url.split("/profile/")[1]
+  const user_name = decodeURI(profile)
+
+  // Get all posts
+  if(!user_name){
+    axios
+    .get(`http://192.168.1.107:8000/api/posts/`)
+    .then(res => this.setState({posts:res.data}))
+    .catch(err => console.log(err));    
+  } else {
+    axios
+    .get(`http://192.168.1.107:8000/api/posts/user/${user_name}`)
+    .then(res => this.setState({posts:res.data}))
+    .catch(err => console.log(err));      
+  }
+
 }
 
 getUsers = () => {
@@ -78,9 +92,21 @@ componentDidMount() {
 render() {
   return (
   <div className='wrapper'>
-      <><SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /></>
-      <><CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} /></>
-      <><PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/></>
+      <Routes>
+        <Route path="/" element={
+          <>
+          <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} />
+          <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} />
+          <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
+          </>
+        } />
+
+        <Route path={`/profile/:user`} element={
+          <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
+        } />
+
+
+      </Routes>
   </div>
   );
 }

@@ -5,6 +5,7 @@ import Post from './Post.js'
 class PostsList extends React.Component {
 
 
+
   render() {
 
     const posts_list = this.props.posts.map((post) => {
