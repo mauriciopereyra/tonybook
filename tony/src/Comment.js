@@ -1,13 +1,15 @@
 import React from 'react'
 import './Comment.css'
+import Avatar from './Avatar'
+import UserName from './UserName'
 
 class Comment extends React.Component {
     render(){
         return (
             <div className='comment'>
-                <div className='avatar' style={{backgroundImage:`url(${this.props.user.avatar})`}}></div>
+                <Avatar user={this.props.user} />
                 <div className='comment_content'>
-                    <div className='user'>{this.props.user.name}</div>
+                    <UserName user={this.props.user} />
                     <p>{this.props.text}</p>
                 </div> 
             </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import './PostHeader.css';
 import axios from 'axios';
+import Avatar from './Avatar'
+import UserName from './UserName'
 
 class PostHeader extends React.Component {
 
@@ -31,14 +33,9 @@ removePostConfirm = () => {
 
       return (
         <div className='top_row'>
-            <div className='avatar' style={{
-              backgroundImage:`url(${this.props.user.avatar})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              }}></div>
-
+            <Avatar user={this.props.user} />
             <div className='name_date_wrapper'>
-                <div className='user'>{this.props.user.name}</div>
+                <UserName user={this.props.user} />
                 <div className='date'>{this.props.post.date_posted}</div>
                 {/* <div className='privacy'>{this.props.post.privacy}</div> */}
             </div> 
