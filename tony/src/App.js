@@ -2,6 +2,7 @@ import './App.css';
 import PostsList from './PostsList.js'
 import SelectUser from './SelectUser.js'
 import CreatePost from './CreatePost.js'
+import Profile from './Profile.js'
 import React from 'react';
 import axios from 'axios'; 
 import { Routes, Route } from "react-router-dom"
@@ -36,6 +37,24 @@ setLoggedUser = () => {
         }
       }
   }
+
+  getUserFromName = (name) => {
+    console.log(this.state.users.length)
+    for (let i = 0; i < this.state.users.length; i++) {
+      console.log(this.state.users[i].name)
+      if (this.state.users[i].name == name){
+        console.log(this.state.users[i])
+        return this.state.users[i]
+      }
+    }
+}
+
+getUserFromUrl = () => {
+  const url = window.location.pathname;
+  const profile = url.split("/profile/")[1]
+  const user_name = decodeURI(profile)
+  return this.getUserFromName(user_name)
+}
 
 
 changeUser = (pk) => {
@@ -92,23 +111,18 @@ componentDidMount() {
 render() {
   return (
   <div className='wrapper'>
+      <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} />
       <Routes>
         <Route path="/" element={
-          <>
           <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} />
-          <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
-          </>
         } />
 
         <Route path={`/profile/:user`} element={
-          <>
-          <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} />
-          <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
-          </>
+          <Profile user={this.getUserFromUrl()} />
         } />
 
-
       </Routes>
+      <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
   </div>
   );
 }

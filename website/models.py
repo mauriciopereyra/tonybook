@@ -9,6 +9,7 @@ class User(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     avatar = models.ImageField(default="",blank=True,null=True)
+    cover = models.ImageField(default="",blank=True,null=True)
 
     def __str__(self):
         return "{}".format(self.name) 
