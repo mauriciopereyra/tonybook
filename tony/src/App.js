@@ -107,6 +107,16 @@ componentDidMount() {
   onMount()
 }
 
+isOwnProfile = () => {
+  try {
+    if (this.getUserFromUrl().pk == this.state.loggedUser.pk) {
+      console.log("works now")
+      return <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} />
+    }
+  } catch (error) {
+   console.log(error) 
+  }
+}
 
 render() {
   return (
@@ -118,10 +128,14 @@ render() {
         } />
 
         <Route path={`/profile/:user`} element={
-          <Profile user={this.getUserFromUrl()} />
+          <>
+          <Profile user={this.getUserFromUrl()} loggedUser={this.state.loggedUser} getPosts={this.getPosts} />
+          {this.isOwnProfile()}
+          </>
         } />
 
       </Routes>
+      
       <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
   </div>
   );

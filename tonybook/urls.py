@@ -29,6 +29,7 @@ urlpatterns = [
     re_path(r'^api/reactions/([0-9]+)$', views.post_reactions),
     re_path(r'^api/posts/([0-9]+)/comments$', views.comments),
     re_path(r'^api/users/$', views.users),
+    re_path(r'^api/users/(.+)$', views.user_detail),
 ]
 
 if settings.DEBUG:
