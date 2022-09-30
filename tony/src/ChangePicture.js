@@ -56,7 +56,7 @@ class ChangePicture extends React.Component {
 
         const newPost = new FormData();
         newPost.append("user", this.props.user.pk);
-        newPost.append("content", `${this.props.user.name} uploaded his ${this.props.type} picture!`);
+        newPost.append("content", `${this.props.user.name} has uploaded his ${this.props.type} picture!`);
         newPost.append("privacy", 'public');
         newPost.append("media", event.target.parentElement.getElementsByTagName('input')[0].files[0]);
 
@@ -120,7 +120,7 @@ class ChangePicture extends React.Component {
                         Cancel
                     </a>
                     <form name='change_picture_form' style={{display:'none'}}>
-                        <input onChange={this.PreviewPictureHandle} name="imageField" type="file"></input>
+                        <input onChange={this.PreviewPictureHandle} name="imageField" type="file" accept="image/*"></input>
                     </form>
                 </div>
             )                

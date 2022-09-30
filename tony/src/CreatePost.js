@@ -32,7 +32,6 @@ handleSubmit = async(event) => {
     document.getElementById('imagePreview').style.display = 'none'
     document.getElementById('imagePreview').src = ''
   } catch(error) {
-    console.log(error)
   }
   setTimeout(this.props.getPosts,100)
 }

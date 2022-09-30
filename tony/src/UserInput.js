@@ -4,8 +4,6 @@ import Avatar from './Avatar'
 
 class UserInput extends React.Component {
 
-
-
     render(){
 
 
