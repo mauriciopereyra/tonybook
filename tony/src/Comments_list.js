@@ -3,6 +3,8 @@ import './Comments_list.css'
 import UserInput from './UserInput';
 import axios from 'axios';
 import Comment from './Comment'
+import { ipAddress } from './serverInfo';
+
 
 class Comments_list extends React.Component {
     constructor(props){
@@ -12,7 +14,7 @@ class Comments_list extends React.Component {
 
     postComment = (content) => {
         console.log(this.props.post.pk)
-          axios.post(`http://192.168.1.107:8000/api/posts/${this.props.post.pk}/comments`, {
+          axios.post(`${ipAddress}:8000/api/posts/${this.props.post.pk}/comments`, {
               user: this.props.loggedUser.pk,
               post: this.props.post.pk,
               content: content,
