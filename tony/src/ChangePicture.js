@@ -64,14 +64,14 @@ class ChangePicture extends React.Component {
 
         await axios({
             method: "put",
-            url: `http://192.168.1.107:8000/api/users/${this.props.user.pk}`,
+            url: `http://192.168.1.107/api/users/${this.props.user.pk}`,
             data: updateUser,
             headers: { "Content-Type": "multipart/form-data" },
           }).then(response => toast.success('Successfully uploaded!'))
           .then(() => {
             axios({
                 method: "post",
-                url: "http://192.168.1.107:8000/api/posts/",
+                url: "http://192.168.1.107/api/posts/",
                 data: newPost,
                 headers: { "Content-Type": "multipart/form-data" },
               }).then(() => this.props.getPosts())

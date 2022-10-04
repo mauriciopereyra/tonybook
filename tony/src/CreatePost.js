@@ -25,7 +25,7 @@ handleSubmit = async(event) => {
   try {
     const response = await axios({
       method: "post",
-      url: `${ipAddress}:8000/api/posts/`,
+      url: `${ipAddress}/api/posts/`,
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     });

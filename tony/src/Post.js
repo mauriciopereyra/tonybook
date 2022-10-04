@@ -19,7 +19,7 @@ class Post extends React.Component {
 
     likePost = () => {
       console.log(this.props.post.pk)
-        axios.post(`${ipAddress}:8000/api/reactions/`, {
+        axios.post(`${ipAddress}/api/reactions/`, {
             user: this.props.loggedUser.pk, // !!!!!
             post: this.props.post.pk,
             type: 1
@@ -31,7 +31,7 @@ class Post extends React.Component {
 
     getLikes = () => {
             axios
-            .get(`${ipAddress}:8000/api/reactions/${this.props.post.pk}`)
+            .get(`${ipAddress}/api/reactions/${this.props.post.pk}`)
             .then(res => this.setState({likes:res.data}))
             .catch(err => console.log(err));
             setTimeout(this.checkLiked,100)
@@ -39,7 +39,7 @@ class Post extends React.Component {
 
     getComments = () => {
       axios
-      .get(`${ipAddress}:8000/api/posts/${this.props.post.pk}/comments`)
+      .get(`${ipAddress}/api/posts/${this.props.post.pk}/comments`)
       .then(res => this.setState({comments:res.data}))
       .catch(err => console.log(err));
 }

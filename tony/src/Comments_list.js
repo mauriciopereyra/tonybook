@@ -14,7 +14,7 @@ class Comments_list extends React.Component {
 
     postComment = (content) => {
         console.log(this.props.post.pk)
-          axios.post(`${ipAddress}:8000/api/posts/${this.props.post.pk}/comments`, {
+          axios.post(`${ipAddress}/api/posts/${this.props.post.pk}/comments`, {
               user: this.props.loggedUser.pk,
               post: this.props.post.pk,
               content: content,

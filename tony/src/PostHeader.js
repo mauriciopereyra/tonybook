@@ -9,7 +9,7 @@ class PostHeader extends React.Component {
 
 removePost = async() => {
   await axios
-  .delete(`${ipAddress}:8000/api/posts/${this.props.post.pk}`)
+  .delete(`${ipAddress}/api/posts/${this.props.post.pk}`)
   .then(res => this.setState({likes:res.data}))
   .catch(err => console.log(err));
   this.props.getPosts()
