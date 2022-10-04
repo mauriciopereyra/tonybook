@@ -127,7 +127,8 @@ render() {
   <div className='wrapper'>
       <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} />
       <Routes>
-        <Route path="/" element={
+        {/* Need to fix this, path should be / and not "*" */}
+        <Route path="*" element={
           <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} />
         } />
 
