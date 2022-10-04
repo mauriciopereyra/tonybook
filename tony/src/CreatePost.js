@@ -2,6 +2,7 @@ import './CreatePost.css';
 import React, { isValidElement } from 'react';
 import axios from 'axios';
 import UserInput from './UserInput';
+import { ipAddress } from './serverInfo';
 
 class CreatePost extends React.Component {
 constructor(props){
@@ -24,7 +25,7 @@ handleSubmit = async(event) => {
   try {
     const response = await axios({
       method: "post",
-      url: "http://192.168.1.107:8000/api/posts/",
+      url: `${ipAddress}:8000/api/posts/`,
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     });

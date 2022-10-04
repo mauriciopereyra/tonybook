@@ -6,6 +6,7 @@ import PostImage from './PostImage';
 import PostReactions from './PostReactions';
 import axios from 'axios'; 
 import Comments_list from './Comments_list'
+import { ipAddress } from './serverInfo';
 
 class Post extends React.Component {
     constructor(props){
@@ -18,7 +19,7 @@ class Post extends React.Component {
 
     likePost = () => {
       console.log(this.props.post.pk)
-        axios.post('http://192.168.1.107:8000/api/reactions/', {
+        axios.post(`${ipAddress}:8000/api/reactions/`, {
             user: this.props.loggedUser.pk, // !!!!!
             post: this.props.post.pk,
             type: 1
@@ -30,7 +31,7 @@ class Post extends React.Component {
 
     getLikes = () => {
             axios
-            .get("http://192.168.1.107:8000/api/reactions/"+this.props.post.pk)
+            .get(`${ipAddress}:8000/api/reactions/${this.props.post.pk}`)
             .then(res => this.setState({likes:res.data}))
             .catch(err => console.log(err));
             setTimeout(this.checkLiked,100)
@@ -38,7 +39,7 @@ class Post extends React.Component {
 
     getComments = () => {
       axios
-      .get(`http://192.168.1.107:8000/api/posts/${this.props.post.pk}/comments`)
+      .get(`${ipAddress}:8000/api/posts/${this.props.post.pk}/comments`)
       .then(res => this.setState({comments:res.data}))
       .catch(err => console.log(err));
 }

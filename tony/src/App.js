@@ -6,20 +6,21 @@ import Profile from './Profile.js'
 import React from 'react';
 import axios from 'axios'; 
 import { Routes, Route } from "react-router-dom"
+import { ipAddress } from './serverInfo';
 
 
 class App extends React.Component {
 constructor(props){
   super(props)
   this.state = {loggedUserId:1,posts:[],users:[],
-    loggedUser:{pk: 1, user: 1, name: 'mauri 🇦🇷 🐈‍⬛', avatar: 'http://192.168.1.107:8000/media/djangounchained-leoblog630-jpg_225139_qlxhY4y.jpg'}
+    loggedUser:{pk: 1, user: 1, name: 'mauri 🇦🇷 🐈‍⬛', avatar: `${ipAddress}:8000/media/djangounchained-leoblog630-jpg_225139_qlxhY4y.jpg`}
   }
 
   this.getUsers = () => {
     return new Promise((resolve,reject) =>
     {
       axios
-      .get("http://192.168.1.107:8000/api/users/")
+      .get(`${ipAddress}:8000/api/users/`)
       .then(res => {this.setState({users:res.data});resolve()})
       // .catch(err => {console.log(err);reject()});
     })
@@ -89,12 +90,12 @@ getPosts = () => {
   // Get all posts
   if(!user_name){
     axios
-    .get(`http://192.168.1.107:8000/api/posts/`)
+    .get(`${ipAddress}:8000/api/posts/`)
     .then(res => this.setState({posts:res.data}))
     .catch(err => console.log(err));    
   } else {
     axios
-    .get(`http://192.168.1.107:8000/api/posts/user/${user_name}`)
+    .get(`${ipAddress}:8000/api/posts/user/${user_name}`)
     .then(res => this.setState({posts:res.data}))
     .catch(err => console.log(err));      
   }
