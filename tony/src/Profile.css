@@ -10,13 +10,11 @@
 
 .profile_cover {
     width: 100%;
-    min-height: 312px;
-    max-height: 600px;
+    height:30vw;
     background-position: center;
     background-size: cover;
     margin-bottom: 15px;
     position: relative;
-    background: white;
 }
 
 .profile_picture{
@@ -49,5 +47,6 @@
     }
     .profile_cover {
         margin-bottom: 0px;
+        height: 60vw;
     }
 }
