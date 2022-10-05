@@ -8,7 +8,7 @@ import React from 'react';
 import axios from 'axios'; 
 import { Routes, Route } from "react-router-dom"
 import { ipAddress } from './serverInfo';
-
+import NavBar from './NavBar';
 
 class App extends React.Component {
 constructor(props){
@@ -151,6 +151,8 @@ isOwnProfile = () => {
 
 render() {
   return (
+  <>
+  <NavBar loggedUser={this.state.loggedUser}></NavBar>
   <div className='wrapper'>
       {/* {this.state.loggedUser ? <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /> : ""} */}
       <Routes>
@@ -177,6 +179,7 @@ render() {
       </Routes>
       
   </div>
+  </>
   );
 }
 }

@@ -14,7 +14,7 @@ constructor(props){
 
 handleSubmit(event){
     event.preventDefault()
-    const username = document.getElementsByName('username')[0].value
+    const username = document.getElementsByName('username')[0].value.toLowerCase()
     const password = document.getElementsByName('password')[0].value
     axios({
         method: "post",

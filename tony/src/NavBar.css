@@ -1,0 +1,33 @@
+
+.navBar {
+    background: rgb(38, 14, 104);
+    color: white;
+    padding: 0.5em 10%;
+    display: flex;
+    justify-content: space-between;
+    line-height: 2;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.navBar a {
+    width: 10em;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar_title {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+@media screen and (max-width:576px) {
+    .profile_link, .notifications {
+        display: none;
+    }    
+    .navbar_title {
+    width:100%!important;
+}
+}
