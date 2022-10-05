@@ -21,12 +21,14 @@ handleSubmit(event){
             password:"14Henry!"},
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        document.cookie = `user_token=${res.data.token}`
+        let hasCookie = document.cookie.split(";").filter(cookie => cookie.includes("user_token"))
+        if (hasCookie) { let user_token = hasCookie[0].split('user_token=')[1]}
+    })
       .catch(err => console.log(err))
 }
-
-
-
 
 
 render() {

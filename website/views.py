@@ -6,6 +6,7 @@ import pytz
 
 from .models import Post, Reaction, User, Comment
 from .serializers import *
+from rest_framework.authtoken.models import Token
 
 tz = pytz.timezone('Asia/Bangkok')
 
@@ -73,6 +74,17 @@ def user_detail(request, pk):
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def user_from_token(request,token):
+    try:
+        user = User.objects.get(user = Token.objects.get(key=token).user)
+        serializer = UserSerializer(user, context={'request': request})
+        return Response(serializer.data)
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 
 

@@ -31,6 +31,7 @@ urlpatterns = [
     re_path(r'^api/posts/([0-9]+)/comments$', views.comments),
     re_path(r'^api/users/$', views.users),
     re_path(r'^api/users/(.+)$', views.user_detail),
+    re_path(r'^api/user_from_token/(.+)$', views.user_from_token),
     path('api/api-token-auth/', auth_views.obtain_auth_token),
 ]
 

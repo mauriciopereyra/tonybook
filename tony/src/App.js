@@ -13,8 +13,11 @@ import { ipAddress } from './serverInfo';
 class App extends React.Component {
 constructor(props){
   super(props)
-  this.state = {loggedUserId:1,posts:[],users:[],
-    loggedUser:{pk: 1, user: 1, name: 'mauri 🇦🇷 🐈‍⬛', avatar: `${ipAddress}/media/djangounchained-leoblog630-jpg_225139_qlxhY4y.jpg`}
+
+
+  this.state = {
+    loggedUserId:null,posts:[],users:[],
+    loggedUser:null,
   }
 
   this.getUsers = () => {
@@ -28,7 +31,6 @@ constructor(props){
   }
 
   this.getUsers()
-
 }
 
 
@@ -103,10 +105,30 @@ getPosts = () => {
 
 }
 
+getUserFromToken = async () => {
+  let hasCookie = document.cookie.split(";").filter(cookie => cookie.includes("user_token"))
+  if (hasCookie.length) { 
+    var token = hasCookie[0].split('user_token=')[1]
+  } else {
+    return false
+  }
+  return await axios.get(`${ipAddress}/api/user_from_token/${token}`)
+}
 
+setUserFromToken = (user) => {
+  if(user !== null){
+    this.setState({
+      loggedUser : user.data,
+      loggedUserId : user.data.pk
+    })
+  }
+}
 
 componentDidMount() {
+
   const onMount = async() => {
+    const user = await this.getUserFromToken()
+    this.setUserFromToken(user)
     await this.getUsers()
     this.setLoggedUser()
     this.getPosts()
@@ -126,13 +148,13 @@ isOwnProfile = () => {
 render() {
   return (
   <div className='wrapper'>
-      <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} />
+      {this.state.loggedUser ? <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /> : ""}
       <Routes>
         {/* Need to fix this, path should be / and not "*" */}
         <Route path="*" element={
           <>
-          <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} />
-          <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
+          {this.state.loggedUser ? <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} /> : ""}
+          {this.state.loggedUser ? <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : ""}
           </>
         } />
 
@@ -142,9 +164,9 @@ render() {
 
         <Route path={`/profile/:user`} element={
           <>
-          <Profile user={this.getUserFromUrl()} loggedUser={this.state.loggedUser} getPosts={this.getPosts} />
-          {this.isOwnProfile()}
-          <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
+          {this.state.loggedUser ? <Profile user={this.getUserFromUrl()} loggedUser={this.state.loggedUser} getPosts={this.getPosts} /> : "" }
+          {this.state.loggedUser ? this.isOwnProfile() : "" }
+          {this.state.loggedUser ? <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : "" }
           </>
         } />
 
