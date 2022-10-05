@@ -107,7 +107,7 @@ getPosts = () => {
 
 getUserFromToken = async () => {
   let hasCookie = document.cookie.split(";").filter(cookie => cookie.includes("user_token"))
-  if (hasCookie.length) { 
+  if (hasCookie.length > 0) { 
     var token = hasCookie[0].split('user_token=')[1]
   } else {
     return false
@@ -116,11 +116,15 @@ getUserFromToken = async () => {
 }
 
 setUserFromToken = (user) => {
-  if(user !== null){
+  if(user){
     this.setState({
       loggedUser : user.data,
       loggedUserId : user.data.pk
     })
+  } else {
+    if (!window.location.href.includes("/login")){
+      window.location.href = "/login";      
+    }
   }
 }
 
@@ -148,7 +152,7 @@ isOwnProfile = () => {
 render() {
   return (
   <div className='wrapper'>
-      {this.state.loggedUser ? <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /> : ""}
+      {/* {this.state.loggedUser ? <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /> : ""} */}
       <Routes>
         {/* Need to fix this, path should be / and not "*" */}
         <Route path="*" element={

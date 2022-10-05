@@ -33,7 +33,7 @@ class Post extends React.Component {
             axios
             .get(`${ipAddress}/api/reactions/${this.props.post.pk}`)
             .then(res => this.setState({likes:res.data}))
-            .then(() => this.checkLiked())
+            // .then(() => this.checkLiked())
             .catch(err => console.log(err));
     }
 

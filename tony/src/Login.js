@@ -6,6 +6,9 @@ class App extends React.Component {
 constructor(props){
   super(props)
   this.handleSubmit = this.handleSubmit.bind(this)
+  this.state = {
+    status: null
+  }
 }
 
 
@@ -17,8 +20,8 @@ handleSubmit(event){
         method: "post",
         url: `${ipAddress}/api/api-token-auth/`,
         data: {
-            username:"mauricio",
-            password:"14Henry!"},
+            username:username,
+            password:password},
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(res => {
@@ -26,8 +29,11 @@ handleSubmit(event){
         document.cookie = `user_token=${res.data.token}`
         let hasCookie = document.cookie.split(";").filter(cookie => cookie.includes("user_token"))
         if (hasCookie) { let user_token = hasCookie[0].split('user_token=')[1]}
+        if (window.location.href.includes("/login")){
+            window.location.href = "/";      
+        }
     })
-      .catch(err => console.log(err))
+      .catch(err => this.setState({status:'Incorrect username or password'}))
 }
 
 
@@ -36,12 +42,11 @@ render() {
     <div className='login'>
         <form onSubmit={this.handleSubmit}>
             <h1>Login</h1>
-            <input required type="text" name="username" placeholder='Username'></input>
-            <input required type="password" name="password" placeholder='Password'></input>
+            <input required type="text" name="username" placeholder='Username'></input><br></br><br></br>
+            <input required type="password" name="password" placeholder='Password'></input><br></br><br></br>
             <input type="submit" value="Login"></input>
         </form>
-        <h3>Login response</h3>
-        <p>Sample</p>
+        <p>{this.state.status}</p>
     </div>
   );
 }
