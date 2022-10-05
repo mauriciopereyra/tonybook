@@ -18,6 +18,7 @@ from django.urls import path, re_path
 from website import views
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework.authtoken import views as auth_views
 
 
 urlpatterns = [
@@ -30,7 +31,9 @@ urlpatterns = [
     re_path(r'^api/posts/([0-9]+)/comments$', views.comments),
     re_path(r'^api/users/$', views.users),
     re_path(r'^api/users/(.+)$', views.user_detail),
+    path('api/api-token-auth/', auth_views.obtain_auth_token),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

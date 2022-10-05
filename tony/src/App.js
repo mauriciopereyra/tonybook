@@ -3,6 +3,7 @@ import PostsList from './PostsList.js'
 import SelectUser from './SelectUser.js'
 import CreatePost from './CreatePost.js'
 import Profile from './Profile.js'
+import Login from './Login.js'
 import React from 'react';
 import axios from 'axios'; 
 import { Routes, Route } from "react-router-dom"
@@ -129,19 +130,26 @@ render() {
       <Routes>
         {/* Need to fix this, path should be / and not "*" */}
         <Route path="*" element={
+          <>
           <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} />
+          <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
+          </>
         } />
+
+        <Route path="/login" element={
+          <Login />
+    } />
 
         <Route path={`/profile/:user`} element={
           <>
           <Profile user={this.getUserFromUrl()} loggedUser={this.state.loggedUser} getPosts={this.getPosts} />
           {this.isOwnProfile()}
+          <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
           </>
         } />
 
       </Routes>
       
-      <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/>
   </div>
   );
 }

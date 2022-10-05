@@ -25,16 +25,16 @@ class Post extends React.Component {
             type: 1
           })
           .then(function (response) {console.log(response);})
+          .then(() => this.getLikes())
           .catch(function (error) {console.log(error);});
-          setTimeout(this.getLikes,100)
     };
 
     getLikes = () => {
             axios
             .get(`${ipAddress}/api/reactions/${this.props.post.pk}`)
             .then(res => this.setState({likes:res.data}))
+            .then(() => this.checkLiked())
             .catch(err => console.log(err));
-            setTimeout(this.checkLiked,100)
     }
 
     getComments = () => {

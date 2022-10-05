@@ -32,9 +32,10 @@ handleSubmit = async(event) => {
     document.getElementById('CreatePost').reset()
     document.getElementById('imagePreview').style.display = 'none'
     document.getElementById('imagePreview').src = ''
+    this.props.getPosts()
   } catch(error) {
   }
-  setTimeout(this.props.getPosts,100)
+
 }
 
 
