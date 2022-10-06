@@ -18,6 +18,7 @@ constructor(props){
   this.state = {
     loggedUserId:null,posts:[],users:[],
     loggedUser:null,
+    page:1,
   }
 
   this.getUsers = () => {
@@ -93,13 +94,13 @@ getPosts = () => {
   // Get all posts
   if(!user_name){
     axios
-    .get(`${ipAddress}/api/posts/`)
-    .then(res => this.setState({posts:res.data}))
+    .get(`${ipAddress}/api/posts?page=${this.state.page}`)
+    .then(res => this.setState({posts:res.data,page:this.state.page+1}))
     .catch(err => console.log(err));    
   } else {
     axios
-    .get(`${ipAddress}/api/posts/user/${user_name}`)
-    .then(res => this.setState({posts:res.data}))
+    .get(`${ipAddress}/api/posts/user/${user_name}?page=${this.state.page}`)
+    .then(res => this.setState({posts:res.data,page:this.state.page+1}))
     .catch(err => console.log(err));      
   }
 
@@ -128,6 +129,12 @@ setUserFromToken = (user) => {
   }
 }
 
+loadMore = () => {
+  if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
+    this.getPosts()
+  }
+}
+
 componentDidMount() {
 
   const onMount = async() => {
@@ -136,8 +143,13 @@ componentDidMount() {
     await this.getUsers()
     this.setLoggedUser()
     this.getPosts()
+    window.addEventListener('scroll',this.loadMore)
   }
   onMount()
+}
+
+componentWillUnmount(){
+  window.removeEventListener('scroll',this.loadMore)
 }
 
 isOwnProfile = () => {

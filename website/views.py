@@ -3,8 +3,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 import pytz
+from django.core.paginator import Paginator
 
-from .models import Post, Reaction, User, Comment
+from .models import Post, Reaction, User, Comment, Notification
 from .serializers import *
 from rest_framework.authtoken.models import Token
 
@@ -13,14 +14,21 @@ tz = pytz.timezone('Asia/Bangkok')
 @api_view(['GET', 'POST'])
 def posts_list(request,user=None):
     if request.method == 'GET':
-        print(user)
-        if user == 'undefined':
+        if user == 'undefined' or user == None:
             data = Post.objects.all().order_by('-date_posted')
         else:
             data = Post.objects.filter(user__name=user).order_by('-date_posted')
         for post in data:
             post.date_posted = post.date_posted.replace(tzinfo=pytz.utc).astimezone(tz)
             post.date_posted = post.date_posted.strftime('%d/%m/%Y %H:%M')
+
+        if 'page' in request.GET:
+            all_pages = []
+            for page in range(int(request.GET.get('page'))):
+                this_page = Paginator(data, 5).page(page+1)
+                print(this_page)
+                all_pages += this_page
+            data = all_pages
 
         serializer = PostSerializer(data, context={'request': request}, many=True)
 
@@ -151,3 +159,27 @@ def comments(request, pk):
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def notification_detail(request,pk):
+    try:
+        notifications = Notification.objects.get(pk=pk)
+    except Notification.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = NotificationSerializer(notifications, context={'request': request})
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def user_notifications(request,user_pk):
+    try:
+        notifications = Notification.objects.filter(to_user_id=user_pk)
+    except Notification.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = NotificationSerializer(notifications, context={'request': request}, many=True)
+        return Response(serializer.data)
