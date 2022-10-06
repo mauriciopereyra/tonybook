@@ -1,6 +1,7 @@
 import React from 'react';
 import './NavBar.css'
 import Avatar from './Avatar';
+import Notifications from './Notifications';
 
 class NavBar extends React.Component {
 constructor(props){
@@ -18,18 +19,25 @@ checkUserIsLogged = () => {
 profileLink = () => {
     if (this.checkUserIsLogged() && this.props.loggedUser) {
         // return <Avatar user={this.props.loggedUser} />
-        return <a href={`/profile/${this.props.loggedUser.name}`} className='profile_link'>{this.props.loggedUser.name}</a>
+        return (
+          <div className='avatar_and_name'>
+          <Avatar user={this.props.loggedUser}></Avatar>
+          <a href={`/profile/${this.props.loggedUser.name}`} className='profile_link'>{this.props.loggedUser.name}</a>
+          </div>
+        )
     } else {
-        return <a className='profile_link'></a>
+        return <div className='avatar_and_name'></div>
     }
 }
+       
+
 
 render() {
   return (
     <div className='navBar'>
             {this.profileLink()}
             <a className='navbar_title' href="/">Tonybook</a>
-            <a className='notifications'></a>
+            <Notifications loggedUser={this.props.loggedUser}></Notifications>
     </div>
   );
 }

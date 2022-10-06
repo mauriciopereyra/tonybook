@@ -1,33 +1,63 @@
 
 .navBar {
-    background: rgb(38, 14, 104);
+    background: #4267B2;
     color: white;
-    padding: 0.5em 10%;
+    padding: 1em 10%;
     display: flex;
     justify-content: space-between;
-    line-height: 2;
+    /* line-height: 2; */
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 1;
 }
 
+.navBar > *{
+    width: 33.3%;
+}
+
+.avatar_and_name {
+    display:flex;
+    align-items: center;
+}
+
+.profile_link {
+    margin-left: 1em;
+}
+
 .navBar a {
-    width: 10em;
+    /* width: 10em; */
     text-decoration: none;
     color: white;
 }
 
 .navbar_title {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 2.5em;
+    font-weight: bold;
 }
 
 @media screen and (max-width:576px) {
-    .profile_link, .notifications {
-        display: none;
+    .navBar {
+        padding: 0.5em 10%!important
+    }
+    .profile_link {
+        visibility: hidden;
     }    
     .navbar_title {
-    width:100%!important;
+        font-size: 1.8em!important;
+    }
+    .avatar_and_name, .notifications {
+        transform: scale(0.8);
+    }
 }
+
+
+@media screen and (max-width:1000px) {
+    .profile_link {
+        display: none;
+    }    
+    .navBar > *{
+        width: auto!important;
+    }
 }
