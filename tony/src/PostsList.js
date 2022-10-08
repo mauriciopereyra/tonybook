@@ -4,10 +4,8 @@ import Post from './Post.js'
 
 class PostsList extends React.Component {
 
-
-
   render() {
-
+    
     const posts_list = this.props.posts.map((post) => {
       return <Post key={post.pk} post={post} loggedUser={this.props.loggedUser} getPosts={this.props.getPosts} getUserFromId={this.props.getUserFromId}
       user={

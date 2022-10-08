@@ -17,6 +17,19 @@ class Post extends React.Component {
         }
     };
 
+    getPostDetail = async () => {
+      console.log(this.props.match.params.post_id)
+      // var post = null
+      // await axios
+      // .get(`${ipAddress}/api/posts/${post_id}`)
+      // .then(res => post = <PostsList users={this.state.users} posts={[res.data]} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> )
+      // .catch(err => console.log(err)); 
+  
+      // return post
+  }
+
+
+
     likePost = () => {
       console.log(this.props.post.pk)
         axios.post(`${ipAddress}/api/reactions/`, {
@@ -50,7 +63,7 @@ class Post extends React.Component {
       }
 
       media = () => {if(this.props.post.media){
-        return <PostImage media={this.props.post.media} />
+        return <PostImage media={this.props.post.media} pk={this.props.post.pk} />
       }
     }
 

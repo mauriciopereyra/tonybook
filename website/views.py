@@ -25,9 +25,10 @@ def posts_list(request,user=None):
         if 'page' in request.GET:
             all_pages = []
             for page in range(int(request.GET.get('page'))):
-                this_page = Paginator(data, 5).page(page+1)
-                print(this_page)
-                all_pages += this_page
+                try:
+                    this_page = Paginator(data, 5).page(page+1)
+                    all_pages += this_page
+                except: break
             data = all_pages
 
         serializer = PostSerializer(data, context={'request': request}, many=True)
@@ -43,19 +44,19 @@ def posts_list(request,user=None):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['PUT', 'DELETE']) #'GET',
+@api_view(['GET','PUT', 'DELETE']) #'GET',
 def posts_detail(request, pk):
     try:
         post = Post.objects.get(pk=pk)
     except Post.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    # ### Added by me
-    # if request.method == 'GET':
-    #     serializer = PostSerializer(post, context={'request': request})
+    ### Added by me
+    if request.method == 'GET':
+        serializer = PostSerializer(post, context={'request': request})
 
-    #     return Response(serializer.data)
-    # ### 
+        return Response(serializer.data)
+    ### 
 
     if request.method == 'PUT':
         serializer = PostSerializer(post, data=request.data,context={'request': request})

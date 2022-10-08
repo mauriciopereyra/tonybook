@@ -5,9 +5,11 @@ class PostImage extends React.Component {
 
     render() {
       return (
-        <div className="post_image">
-            <img src={ this.props.media } alt="Post"></img>
-        </div>
+        <a href={`/posts/${this.props.pk}`}>
+          <div className="post_image">
+              <img src={ this.props.media } alt="Post"></img>
+          </div>
+        </a>
       )
     }
 }

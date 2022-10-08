@@ -1,6 +1,7 @@
 import './App.css';
 import PostsList from './PostsList.js'
 import SelectUser from './SelectUser.js'
+import Post from './Post';
 import CreatePost from './CreatePost.js'
 import Profile from './Profile.js'
 import Login from './Login.js'
@@ -9,6 +10,8 @@ import axios from 'axios';
 import { Routes, Route } from "react-router-dom"
 import { ipAddress } from './serverInfo';
 import NavBar from './NavBar';
+import PostDetail from './PostDetail';
+
 
 class App extends React.Component {
 constructor(props){
@@ -106,6 +109,7 @@ getPosts = () => {
 
 }
 
+
 getUserFromToken = async () => {
   let hasCookie = document.cookie.split(";").filter(cookie => cookie.includes("user_token"))
   if (hasCookie.length > 0) { 
@@ -130,8 +134,11 @@ setUserFromToken = (user) => {
 }
 
 loadMore = () => {
-  if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
-    this.getPosts()
+  // document.getElementsByClassName("navbar_title")[0].innerHTML = `wIH= ${window.innerHeight} dST= ${document.documentElement.scrollTop} dSESH= ${document.scrollingElement.scrollHeight}`
+
+  if (window.innerHeight + document.documentElement.scrollTop > document.scrollingElement.scrollHeight - 100) {
+  // document.getElementsByClassName("navbar_title")[0].innerHTML = "Getting more posts" 
+     this.getPosts()
   }
 }
 
@@ -179,6 +186,10 @@ render() {
         <Route path="/login" element={
           <Login />
     } />
+
+        <Route path={`/posts/:post_id`} element={
+          this.state.loggedUser ? <PostDetail users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : ""
+      } />
 
         <Route path={`/profile/:user`} element={
           <>
