@@ -14,6 +14,7 @@ class User(models.Model):
     def __str__(self):
         return "{}".format(self.name) 
 
+
 class Post(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     content = models.TextField(blank=True,null=True)

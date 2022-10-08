@@ -177,7 +177,7 @@ def notification_detail(request,pk):
 @api_view(['GET'])
 def user_notifications(request,user_pk):
     try:
-        notifications = Notification.objects.filter(to_user_id=user_pk)
+        notifications = Notification.objects.filter(to_user_id=user_pk).order_by('-pk')
     except Notification.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 

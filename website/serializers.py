@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Post, Reaction, User, Comment, Notification
 
+
 class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -27,8 +28,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('pk', 'user', 'name', 'avatar', 'cover')
 
 
+
+
 class NotificationSerializer(serializers.ModelSerializer):
+    user_info = UserSerializer(source='from_user')
+    post_info = PostSerializer(source='post')
 
     class Meta:
         model = Notification 
-        fields = ('pk', 'from_user', 'to_user', 'post','category', 'read')
+        fields = ('pk', 'from_user', 'to_user', 'post','category', 'read','user_info','post_info')
