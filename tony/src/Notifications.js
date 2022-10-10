@@ -46,9 +46,9 @@ class Notifications extends React.Component {
 
     notificationsList = () => {
         return this.state.notifications.map((notification) => {
-            var action = notification.category == 'reaction' ? 'commented' : 'reacted'
+            var action = notification.reaction ? 'reacted to' : 'commented on'
             return <li onClick={this.handleNotificationClick} key={notification.pk}>
-                <a href={`/posts/${notification.post_info.pk}`}>{notification.user_info.name} {action} on your post "{notification.post_info.content}"</a>
+                <a href={`/posts/${notification.post_info.pk}`}>{notification.user_info.name} {action} your post "{notification.post_info.content}"</a>
                 </li>
 
         }) 

@@ -17,20 +17,8 @@ class Post extends React.Component {
         }
     };
 
-    getPostDetail = async () => {
-      console.log(this.props.match.params.post_id)
-      // var post = null
-      // await axios
-      // .get(`${ipAddress}/api/posts/${post_id}`)
-      // .then(res => post = <PostsList users={this.state.users} posts={[res.data]} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> )
-      // .catch(err => console.log(err)); 
-  
-      // return post
-  }
 
-
-
-    likePost = () => {
+    likePost = (event) => {
       console.log(this.props.post.pk)
         axios.post(`${ipAddress}/api/reactions/`, {
             user: this.props.loggedUser.pk, // !!!!!

@@ -55,5 +55,6 @@ class Notification(models.Model):
     from_user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='from_user')
     to_user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='to_user')
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
-    category = models.TextField()
+    reaction = models.ForeignKey(Reaction,on_delete=models.CASCADE,null=True,blank=True)
+    comment = models.ForeignKey(Comment,on_delete=models.CASCADE,null=True,blank=True)
     read = models.BooleanField(default=False)

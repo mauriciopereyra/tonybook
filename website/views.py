@@ -117,7 +117,15 @@ def post_reactions(request, pk=0):
 
         serializer = ReactionSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            new_reaction = serializer.save()
+            # create notification here
+            # if not (User.objects.get(id=request.data['user']) == Post.objects.get(id=request.data['post']).user):
+            Notification.objects.create(
+                from_user= User.objects.get(id=request.data['user']),
+                to_user= Post.objects.get(id=request.data['post']).user,
+                post= Post.objects.get(id=request.data['post']),
+                reaction= new_reaction,
+            )
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -156,7 +164,15 @@ def comments(request, pk):
     elif request.method == 'POST':
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            new_comment = serializer.save()
+            # create notification here
+            # if not (User.objects.get(id=request.data['user']) == Post.objects.get(id=request.data['post']).user):
+            Notification.objects.create(
+                from_user= User.objects.get(id=request.data['user']),
+                to_user= Post.objects.get(id=request.data['post']).user,
+                post= Post.objects.get(id=request.data['post']),
+                comment= new_comment,
+            )
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
