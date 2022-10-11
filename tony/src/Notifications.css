@@ -37,13 +37,20 @@ position:relative;
     right:0;
     background: #4267b2;
     width: 15em;
+    max-height:60vh;
+    overflow: scroll;
 }
 
 .notifications-dropdown li {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.2em;
     padding:0.5em 1.5em;
     cursor: pointer;
 }
+
+.notifications-dropdown .unread {
+    background: #5786e7;
+}
+
 
 .notifications-dropdown li:last-child {
     margin-bottom: 0em;

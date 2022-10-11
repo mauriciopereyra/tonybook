@@ -7,7 +7,7 @@ class Notifications extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            open: true,
+            open: false,
             notifications: [],
             new_notifications: 0,
         }
@@ -27,9 +27,20 @@ class Notifications extends React.Component {
         .catch(err => console.log(err)); }
     }
 
+    readNotifications = () => {
+        if (this.props.loggedUser){
+        axios
+        .put(`${ipAddress}/api/notifications/user/${this.props.loggedUser.pk}`,{
+            notifications: this.state.notifications.filter((item) => !item.read).map((item) => item.pk),
+          })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err)); }
+    }
+
     toggleNotifications = (event) => {
         this.setState({open:!this.state.open})
         event.stopPropagation()
+        this.readNotifications()
     }
 
     notificationsNumber = () => {
@@ -47,8 +58,9 @@ class Notifications extends React.Component {
     notificationsList = () => {
         return this.state.notifications.map((notification) => {
             var action = notification.reaction ? 'reacted to' : 'commented on'
-            return <li onClick={this.handleNotificationClick} key={notification.pk}>
-                <a href={`/posts/${notification.post_info.pk}`}>{notification.user_info.name} {action} your post "{notification.post_info.content}"</a>
+            return <li className={notification.read ? "read" : "unread"} onClick={this.handleNotificationClick} key={notification.pk}>
+                <a
+                href={`/posts/${notification.post_info.pk}`}>{notification.user_info.name} {action} your post "{notification.post_info.content}"</a>
                 </li>
 
         }) 
@@ -76,7 +88,7 @@ class Notifications extends React.Component {
     }
 
     componentDidUpdate(){
-        this.getNotifications()
+        this.getNotifications()     
     }
 
     render(){

@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 import pytz
 from django.core.paginator import Paginator
-
+from time import sleep
 from .models import Post, Reaction, User, Comment, Notification
 from .serializers import *
 from rest_framework.authtoken.models import Token
@@ -119,13 +119,13 @@ def post_reactions(request, pk=0):
         if serializer.is_valid():
             new_reaction = serializer.save()
             # create notification here
-            # if not (User.objects.get(id=request.data['user']) == Post.objects.get(id=request.data['post']).user):
-            Notification.objects.create(
-                from_user= User.objects.get(id=request.data['user']),
-                to_user= Post.objects.get(id=request.data['post']).user,
-                post= Post.objects.get(id=request.data['post']),
-                reaction= new_reaction,
-            )
+            if not (User.objects.get(id=request.data['user']) == Post.objects.get(id=request.data['post']).user):
+                Notification.objects.create(
+                    from_user= User.objects.get(id=request.data['user']),
+                    to_user= Post.objects.get(id=request.data['post']).user,
+                    post= Post.objects.get(id=request.data['post']),
+                    reaction= new_reaction,
+                )
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -166,13 +166,13 @@ def comments(request, pk):
         if serializer.is_valid():
             new_comment = serializer.save()
             # create notification here
-            # if not (User.objects.get(id=request.data['user']) == Post.objects.get(id=request.data['post']).user):
-            Notification.objects.create(
-                from_user= User.objects.get(id=request.data['user']),
-                to_user= Post.objects.get(id=request.data['post']).user,
-                post= Post.objects.get(id=request.data['post']),
-                comment= new_comment,
-            )
+            if not (User.objects.get(id=request.data['user']) == Post.objects.get(id=request.data['post']).user):
+                Notification.objects.create(
+                    from_user= User.objects.get(id=request.data['user']),
+                    to_user= Post.objects.get(id=request.data['post']).user,
+                    post= Post.objects.get(id=request.data['post']),
+                    comment= new_comment,
+                )
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -189,14 +189,27 @@ def notification_detail(request,pk):
         serializer = NotificationSerializer(notifications, context={'request': request})
         return Response(serializer.data)
 
+    if request.method == 'UPDATE':
+        serializer = NotificationSerializer(notifications, context={'request': request})
+        return Response(serializer.data)
 
-@api_view(['GET'])
+@api_view(['GET','PUT'])
 def user_notifications(request,user_pk):
     try:
-        notifications = Notification.objects.filter(to_user_id=user_pk).order_by('-pk')
+        notifications = Notification.objects.filter(to_user_id=user_pk).order_by('-pk')[:20]
     except Notification.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = NotificationSerializer(notifications, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'PUT':
+        notifications = Notification.objects.filter(pk__in=request.data['notifications'])
+        for notification in notifications:
+            notification.read = True
+            notification.save()
+        serializer = NotificationSerializer(data = notifications)
+        if serializer.is_valid():
+            serializer.save()
         return Response(serializer.data)
