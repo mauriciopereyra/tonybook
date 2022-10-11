@@ -38,6 +38,9 @@
     .profile {
         text-align: center;
     }   
+    .profile_name {
+        margin-left: 0em;
+    }
     .profile_title {
         flex-direction: column;
     }
