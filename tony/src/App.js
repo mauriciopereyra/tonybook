@@ -11,7 +11,27 @@ import { Routes, Route } from "react-router-dom"
 import { ipAddress } from './serverInfo';
 import NavBar from './NavBar';
 import PostDetail from './PostDetail';
+import { connect } from 'react-redux'
 
+import { useNavigate } from 'react-router';
+
+const withRouter = (Component) =>{
+    const Wrapper = (props) =>{
+        const history = useNavigate();
+        return <Component history={history} {...props}/>
+    } 
+    return Wrapper;
+}
+
+const mapStateToProps = state => {
+  return {
+    loggedUserId:state.loggedUserId,
+    posts:state.posts,
+    users:state.users,
+    loggedUser:state.loggedUser,
+    page:state.page,
+  }
+}
 
 class App extends React.Component {
 constructor(props){
@@ -36,7 +56,6 @@ constructor(props){
 
   this.getUsers()
 }
-
 
 setLoggedUser = () => {
   var loggedUser
@@ -207,4 +226,5 @@ render() {
 }
 }
 
-export default App;
+export default App
+// export default withRouter(connect(mapStateToProps)(App));
