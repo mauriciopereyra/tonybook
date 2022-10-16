@@ -27,7 +27,7 @@ handleSubmit(event){
       })
       .then(res => {
         console.log(res)
-        document.cookie = `user_token=${res.data.token}`
+        document.cookie = "user_token=" + res.data.token + ";expires=" + new Date(new Date().getTime()+60*60*1000*24*30).toGMTString() + ";"
         let hasCookie = document.cookie.split(";").filter(cookie => cookie.includes("user_token"))
         if (hasCookie) { let user_token = hasCookie[0].split('user_token=')[1]}
         if (window.location.href.includes("/login")){

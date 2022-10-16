@@ -14,14 +14,11 @@ import PostDetail from './PostDetail';
 import { connect } from 'react-redux'
 
 import { useNavigate } from 'react-router';
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from 'react-redux'
+import { configStore } from './redux/configureStore';
 
-const withRouter = (Component) =>{
-    const Wrapper = (props) =>{
-        const history = useNavigate();
-        return <Component history={history} {...props}/>
-    } 
-    return Wrapper;
-}
+const store = configStore()
 
 const mapStateToProps = state => {
   return {
@@ -189,39 +186,41 @@ isOwnProfile = () => {
 
 render() {
   return (
-  <>
-  <NavBar loggedUser={this.state.loggedUser}></NavBar>
-  <div className='wrapper'>
-      {/* {this.state.loggedUser ? <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /> : ""} */}
-      <Routes>
-        {/* Need to fix this, path should be / and not "*" */}
-        <Route path="*" element={
-          <>
-          {this.state.loggedUser ? <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} /> : ""}
-          {this.state.loggedUser ? <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : ""}
-          </>
+    // <Provider store={store}>
+    <BrowserRouter>
+      <NavBar loggedUser={this.state.loggedUser}></NavBar>
+      <div className='wrapper'>
+          {/* {this.state.loggedUser ? <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /> : ""} */}
+          <Routes>
+            {/* Need to fix this, path should be / and not "*" */}
+            <Route path="*" element={
+              <>
+              {this.state.loggedUser ? <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} /> : ""}
+              {this.state.loggedUser ? <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : ""}
+              </>
+            } />
+
+            <Route path="/login" element={
+              <Login />
         } />
 
-        <Route path="/login" element={
-          <Login />
-    } />
+            <Route path={`/posts/:post_id`} element={
+              this.state.loggedUser ? <PostDetail users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : ""
+          } />
 
-        <Route path={`/posts/:post_id`} element={
-          this.state.loggedUser ? <PostDetail users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : ""
-      } />
+            <Route path={`/profile/:user`} element={
+              <>
+              {this.state.loggedUser ? <Profile user={this.getUserFromUrl()} loggedUser={this.state.loggedUser} getPosts={this.getPosts} /> : "" }
+              {this.state.loggedUser ? this.isOwnProfile() : "" }
+              {this.state.loggedUser ? <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : "" }
+              </>
+            } />
 
-        <Route path={`/profile/:user`} element={
-          <>
-          {this.state.loggedUser ? <Profile user={this.getUserFromUrl()} loggedUser={this.state.loggedUser} getPosts={this.getPosts} /> : "" }
-          {this.state.loggedUser ? this.isOwnProfile() : "" }
-          {this.state.loggedUser ? <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : "" }
-          </>
-        } />
-
-      </Routes>
-      
-  </div>
-  </>
+          </Routes>
+          
+      </div>
+      </BrowserRouter>
+      // </Provider>
   );
 }
 }
