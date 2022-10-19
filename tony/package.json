@@ -1,5 +1,6 @@
 {
   "name": "tony",
+  "homepage": "https://mauriciopereyra.com/tonybook",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

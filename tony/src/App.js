@@ -88,7 +88,7 @@ setLoggedUser = () => {
 
 getUserFromUrl = () => {
   const url = window.location.pathname;
-  const profile = url.split("/profile/")[1]
+  const profile = url.split("/tonybook/profile/")[1]
   const user_name = decodeURI(profile)
   return this.getUserFromName(user_name)
 }
@@ -107,7 +107,7 @@ changeUser = (pk) => {
 
 getPosts = () => {
   const url = window.location.pathname;
-  const profile = url.split("/profile/")[1]
+  const profile = url.split("/tonybook/profile/")[1]
   const user_name = decodeURI(profile)
 
   // Get all posts
@@ -144,7 +144,7 @@ setUserFromToken = (user) => {
     })
   } else {
     if (!window.location.href.includes("/login")){
-      window.location.href = "/login";      
+      window.location.href = "/tonybook/login";      
     }
   }
 }
@@ -181,13 +181,14 @@ isOwnProfile = () => {
       return <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} />
     }
   } catch (error) {
+    console.log(error)
   }
 }
 
 render() {
   return (
     // <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename={"/tonybook"}>
       <NavBar loggedUser={this.state.loggedUser}></NavBar>
       <div className='wrapper'>
           {/* {this.state.loggedUser ? <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /> : ""} */}

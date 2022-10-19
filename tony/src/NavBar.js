@@ -2,6 +2,7 @@ import React from 'react';
 import './NavBar.css'
 import Avatar from './Avatar';
 import Notifications from './Notifications';
+import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
 constructor(props){
@@ -22,7 +23,11 @@ profileLink = () => {
         return (
           <div className='avatar_and_name'>
           <Avatar user={this.props.loggedUser}></Avatar>
-          <a href={`/profile/${this.props.loggedUser.name}`} className='profile_link'>{this.props.loggedUser.name}</a>
+          <Link 
+          className='profile_link' 
+          to={`profile/${this.props.loggedUser.name}`}>
+            {this.props.loggedUser.name}
+          </Link>
           </div>
         )
     } else {
@@ -36,7 +41,7 @@ render() {
   return (
     <div className='navBar'>
             {this.profileLink()}
-            <a className='navbar_title' href="/">Tonybook</a>
+            <Link className='navbar_title' to="/">Tonybook</Link>
             <Notifications loggedUser={this.props.loggedUser}></Notifications>
     </div>
   );

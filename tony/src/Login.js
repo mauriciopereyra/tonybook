@@ -31,7 +31,7 @@ handleSubmit(event){
         let hasCookie = document.cookie.split(";").filter(cookie => cookie.includes("user_token"))
         if (hasCookie) { let user_token = hasCookie[0].split('user_token=')[1]}
         if (window.location.href.includes("/login")){
-            window.location.href = "/";      
+            window.location.href = "/tonybook";      
         }
     })
       .catch(err => this.setState({status:'Incorrect username or password'}))
