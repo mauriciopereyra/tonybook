@@ -1,7 +1,5 @@
 import './App.css';
 import PostsList from './PostsList.js'
-import SelectUser from './SelectUser.js'
-import Post from './Post';
 import CreatePost from './CreatePost.js'
 import Profile from './Profile.js'
 import Login from './Login.js'
@@ -11,24 +9,9 @@ import { Routes, Route } from "react-router-dom"
 import { ipAddress } from './serverInfo';
 import NavBar from './NavBar';
 import PostDetail from './PostDetail';
-import { connect } from 'react-redux'
-
-import { useNavigate } from 'react-router';
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from 'react-redux'
 import { configStore } from './redux/configureStore';
 
-const store = configStore()
-
-const mapStateToProps = state => {
-  return {
-    loggedUserId:state.loggedUserId,
-    posts:state.posts,
-    users:state.users,
-    loggedUser:state.loggedUser,
-    page:state.page,
-  }
-}
 
 class App extends React.Component {
 constructor(props){
@@ -86,12 +69,7 @@ setLoggedUser = () => {
     }
 }
 
-getUserFromUrl = () => {
-  const url = window.location.pathname;
-  const profile = url.split("/tonybook/profile/")[1]
-  const user_name = decodeURI(profile)
-  return this.getUserFromName(user_name)
-}
+
 
 
 changeUser = (pk) => {
@@ -175,7 +153,18 @@ componentWillUnmount(){
   window.removeEventListener('scroll',this.loadMore)
 }
 
-isOwnProfile = () => {
+
+getUserFromUrl = () => {
+  const url = window.location.pathname;
+  console.log(url)
+  const profile = url.split("/tonybook/profile/")[1]
+  const user_name = decodeURI(profile)
+  return this.getUserFromName(user_name)
+}
+
+
+
+isOwnProfileCreatePost = () => {
   try {
     if (this.getUserFromUrl().pk == this.state.loggedUser.pk) {
       return <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} />
@@ -185,16 +174,16 @@ isOwnProfile = () => {
   }
 }
 
+
 render() {
   return (
-    // <Provider store={store}>
     <BrowserRouter basename={"/tonybook"}>
       <NavBar loggedUser={this.state.loggedUser}></NavBar>
       <div className='wrapper'>
           {/* {this.state.loggedUser ? <SelectUser users={this.state.users} loggedUserId={this.state.loggedUserId} changeUser={this.changeUser} /> : ""} */}
           <Routes>
             {/* Need to fix this, path should be / and not "*" */}
-            <Route path="*" element={
+            <Route path="/" element={
               <>
               {this.state.loggedUser ? <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} /> : ""}
               {this.state.loggedUser ? <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : ""}
@@ -211,9 +200,9 @@ render() {
 
             <Route path={`/profile/:user`} element={
               <>
-              {this.state.loggedUser ? <Profile user={this.getUserFromUrl()} loggedUser={this.state.loggedUser} getPosts={this.getPosts} /> : "" }
-              {this.state.loggedUser ? this.isOwnProfile() : "" }
-              {this.state.loggedUser ? <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : "" }
+              {this.state.loggedUser ? <Profile getUserFromName={this.getUserFromName} loggedUser={this.state.loggedUser} getPosts={this.getPosts} /> : "" }
+              {this.state.loggedUser ? this.isOwnProfileCreatePost() : '' }
+              {this.state.loggedUser ? <PostsList getUserFromName={this.getUserFromName} users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : "" }
               </>
             } />
 
@@ -221,10 +210,8 @@ render() {
           
       </div>
       </BrowserRouter>
-      // </Provider>
   );
 }
 }
 
 export default App
-// export default withRouter(connect(mapStateToProps)(App));
