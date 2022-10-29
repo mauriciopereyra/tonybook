@@ -59,11 +59,8 @@ setLoggedUser = () => {
   }
 
   getUserFromName = (name) => {
-    // console.log(this.state.users.length)
     for (let i = 0; i < this.state.users.length; i++) {
-      // console.log(this.state.users[i].name)
       if (this.state.users[i].name == name){
-        // console.log(this.state.users[i])
         return this.state.users[i]
       }
     }
@@ -136,6 +133,10 @@ loadMore = () => {
   }
 }
 
+resetPage = () => {
+  this.setState({page:1})
+}
+
 componentDidMount() {
 
   const onMount = async() => {
@@ -156,7 +157,6 @@ componentWillUnmount(){
 
 getUserFromUrl = () => {
   const url = window.location.pathname;
-  console.log(url)
   const profile = url.split("/tonybook/profile/")[1]
   const user_name = decodeURI(profile)
   return this.getUserFromName(user_name)

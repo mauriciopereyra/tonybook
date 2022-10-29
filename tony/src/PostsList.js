@@ -4,6 +4,10 @@ import Post from './Post.js'
 
 class PostsList extends React.Component {
 
+  componentDidMount(){
+    window.scrollTo(0,0)
+  }
+
   render() {
     
     const posts_list = this.props.posts.map((post) => {

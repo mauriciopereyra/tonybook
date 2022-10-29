@@ -4,11 +4,6 @@ import Avatar from './Avatar'
 import ChangePicture from './ChangePicture'
 
 
-
-
-
-
-
 class Profile extends React.Component {
 
     constructor(props){
@@ -19,11 +14,7 @@ class Profile extends React.Component {
     }
 
 
-
-
-
     isOwnProfile = (type) => {
-        console.log(this.props)
         if (this.state.user.pk == this.props.loggedUser.pk) {
             return <ChangePicture key={1} user={this.state.user} type={type} loggedUser={this.props.loggedUser} getPosts={this.props.getPosts}/>
         }
@@ -32,7 +23,6 @@ class Profile extends React.Component {
 
     getUserFromUrl = () => {
         const url = window.location.pathname;
-        console.log(url)
         const profile = url.split("/tonybook/profile/")[1]
         const user_name = decodeURI(profile)
         return this.props.getUserFromName(user_name)

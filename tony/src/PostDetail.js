@@ -42,6 +42,10 @@ class PostDetail extends React.Component {
         this.getPost()
     }
 
+    componentDidUpdate(){
+        this.getPost()
+    }
+
 
   render() {
 

@@ -2,6 +2,7 @@ import React from 'react'
 import './Notifications.css'
 import axios from 'axios'
 import { ipAddress } from './serverInfo';
+import { Link } from 'react-router-dom';
 
 class Notifications extends React.Component {
     constructor(props){
@@ -59,8 +60,8 @@ class Notifications extends React.Component {
         return this.state.notifications.map((notification) => {
             var action = notification.reaction ? 'reacted to' : 'commented on'
             return <li className={notification.read ? "read" : "unread"} onClick={this.handleNotificationClick} key={notification.pk}>
-                <a
-                href={`/posts/${notification.post_info.pk}`}>{notification.user_info.name} {action} your post "{notification.post_info.content}"</a>
+                <Link
+                to={`/posts/${notification.post_info.pk}`}>{notification.user_info.name} {action} your post "{notification.post_info.content}"</Link>
                 </li>
 
         }) 
