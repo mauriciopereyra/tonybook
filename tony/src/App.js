@@ -134,7 +134,10 @@ loadMore = () => {
 }
 
 resetPage = () => {
-  this.setState({page:1})
+  console.log('up '+this.state.page)
+  this.setState({page:1,posts:[]})
+  this.getPosts()
+  console.log('down '+this.state.page)
 }
 
 componentDidMount() {
@@ -170,7 +173,7 @@ isOwnProfileCreatePost = () => {
       return <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} />
     }
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -186,7 +189,7 @@ render() {
             <Route path="/" element={
               <>
               {this.state.loggedUser ? <CreatePost users={this.state.users} loggedUserId={this.state.loggedUserId} getPosts={this.getPosts} loggedUser={this.state.loggedUser} /> : ""}
-              {this.state.loggedUser ? <PostsList users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : ""}
+              {this.state.loggedUser ? <PostsList resetPage={this.resetPage} users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : ""}
               </>
             } />
 
@@ -202,7 +205,7 @@ render() {
               <>
               {this.state.loggedUser ? <Profile getUserFromName={this.getUserFromName} loggedUser={this.state.loggedUser} getPosts={this.getPosts} /> : "" }
               {this.state.loggedUser ? this.isOwnProfileCreatePost() : '' }
-              {this.state.loggedUser ? <PostsList getUserFromName={this.getUserFromName} users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : "" }
+              {this.state.loggedUser ? <PostsList resetPage={this.resetPage} getUserFromName={this.getUserFromName} users={this.state.users} posts={this.state.posts} loggedUser={this.state.loggedUser} getPosts={this.getPosts} getUserFromId={this.getUserFromId}/> : "" }
               </>
             } />
 
