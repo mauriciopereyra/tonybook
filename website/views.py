@@ -18,6 +18,13 @@ def posts_list(request,user=None):
             data = Post.objects.all().order_by('-date_posted')
         else:
             data = Post.objects.filter(user__name=user).order_by('-date_posted')
+
+        loggedUserId = request.GET.get('loggedUserId')
+        if loggedUserId == '4' or loggedUserId == '5':
+            data = data.filter(user__pk__in=['4','5'])
+        else:
+            data = data.exclude(user__pk__in=['4','5'])
+
         for post in data:
             post.date_posted = post.date_posted.replace(tzinfo=pytz.utc).astimezone(tz)
             post.date_posted = post.date_posted.strftime('%d/%m/%Y %H:%M')

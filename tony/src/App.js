@@ -88,12 +88,14 @@ getPosts = () => {
   // Get all posts
   if(!user_name){
     axios
-    .get(`${ipAddress}/api/posts?page=${this.state.page}`)
+    .get(`${ipAddress}/api/posts?page=${this.state.page}&loggedUserId=${this.state.loggedUserId}`
+    )
     .then(res => this.setState({posts:res.data,page:this.state.page+1}))
     .catch(err => console.log(err));    
   } else {
     axios
-    .get(`${ipAddress}/api/posts/user/${user_name}?page=${this.state.page}`)
+    .get(`${ipAddress}/api/posts/user/${user_name}?page=${this.state.page}&loggedUserId=${this.state.loggedUserId}`
+    )
     .then(res => this.setState({posts:res.data,page:this.state.page+1}))
     .catch(err => console.log(err));      
   }
@@ -117,7 +119,8 @@ setUserFromToken = (user) => {
       loggedUser : user.data,
       loggedUserId : user.data.pk
     })
-  } else {
+  } 
+  else {
     if (!window.location.href.includes("/login")){
       window.location.href = "/tonybook/login";      
     }

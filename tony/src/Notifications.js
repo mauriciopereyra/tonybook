@@ -89,7 +89,7 @@ class Notifications extends React.Component {
     }
 
     componentDidUpdate(){
-        this.getNotifications()     
+        // this.getNotifications()     
     }
 
     render(){
