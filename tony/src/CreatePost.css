@@ -10,7 +10,7 @@
 
 
 
-#CreatePost input, #CreatePost textarea, .ImageLabel, #CreatePost img {
+#CreatePost input, .ImageLabel, #CreatePost img {
     margin-bottom: 10px;
 }
 
@@ -62,6 +62,9 @@
     margin-right: 0;
 }
 
+.image-preview-wrapper{
+    position: relative;
+}
 
 @media (hover: hover) {
 
