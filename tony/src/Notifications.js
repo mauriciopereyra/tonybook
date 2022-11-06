@@ -66,27 +66,33 @@ class Notifications extends React.Component {
     notificationsList = () => {
         return this.state.notifications.map((notification) => {
             var action = notification.reaction ? 'reacted to' : 'commented on'
-            return <li className={notification.read ? "read" : "unread"} onClick={this.handleNotificationClick} key={notification.pk}>
-                <Link
-                to={`/posts/${notification.post_info.pk}`}>{notification.user_info.name} {action} your post "{notification.post_info.content}"</Link>
-                </li>
+            return (
+                <li className={notification.read ? "read" : "unread"} onClick={this.handleNotificationClick} key={notification.pk}>
+                <Link to={`/posts/${notification.post_info.pk}`}>
+                    {notification.user_info.name} {action} your post {notification.post_info.content != "" ? `"${notification.post_info.content}"` : ""}
+                    </Link>
+                    </li>
+            )
 
         }) 
     }
 
     isUserLogged = () => {
         const open = this.state.open
-        const dropdown_class = open ? "notifications-dropdown" : "notifications-dropdown-hidden"
+        const dropdown_class = open ? "notifications-dropdown" : "notifications-dropdown notifications-dropdown-hidden"
         if(this.props.loggedUser) {
             return (
+                <>
+                <ul className={dropdown_class}>
+                {this.notificationsList()}
+                </ul>
+
                 <div className='notifications'>
                     <div className='notifications-button' onClick={this.toggleNotifications}>
                         {this.notificationsNumber()}
                     </div>
-                    <ul className={dropdown_class}>
-                            {this.notificationsList()}
-                        </ul>
                 </div>
+                </>
             )
         } else {
             return (
