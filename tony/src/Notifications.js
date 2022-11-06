@@ -29,19 +29,26 @@ class Notifications extends React.Component {
     }
 
     readNotifications = () => {
-        if (this.props.loggedUser){
-        axios
-        .put(`${ipAddress}/api/notifications/user/${this.props.loggedUser.pk}`,{
-            notifications: this.state.notifications.filter((item) => !item.read).map((item) => item.pk),
-          })
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err)); }
+
+        return new Promise ((resolve, reject) => {
+            if (this.props.loggedUser){
+                axios
+                .put(`${ipAddress}/api/notifications/user/${this.props.loggedUser.pk}`,{
+                    notifications: this.state.notifications.filter((item) => !item.read).map((item) => item.pk),
+                  })
+                .then(res => {console.log(res.data); resolve()})
+                .catch(err => {console.log(err); reject()});
+             }
+        })
     }
 
-    toggleNotifications = (event) => {
+    toggleNotifications = async (event) => {
         this.setState({open:!this.state.open})
         event.stopPropagation()
-        this.readNotifications()
+        await this.readNotifications()
+        setTimeout(() => {
+            this.getNotifications()    
+        }, 2000);
     }
 
     notificationsNumber = () => {
@@ -88,8 +95,10 @@ class Notifications extends React.Component {
         }
     }
 
-    componentDidUpdate(){
-        // this.getNotifications()     
+    componentDidMount(){
+        setTimeout(() => {
+            this.getNotifications()
+        }, 300);
     }
 
     render(){

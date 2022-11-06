@@ -19,7 +19,7 @@ constructor(props){
 
 
   this.state = {
-    loggedUserId:null,posts:[],users:[],
+    loggedUserId:null,posts:[],users:[],reactionTypes:[],
     loggedUser:null,
     page:1,
   }
@@ -142,6 +142,18 @@ resetPage = () => {
   this.getPosts()
   console.log('down '+this.state.page)
 }
+
+
+getReactionTypes = () => {
+  return new Promise((resolve,reject) =>
+  {
+    axios
+    .get(`${ipAddress}/api/reaction_types/`)
+    .then(res => {this.setState({reactionTypes:res.data});resolve()})
+    // .catch(err => {console.log(err);reject()});
+  })
+}
+
 
 componentDidMount() {
 

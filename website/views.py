@@ -5,7 +5,7 @@ from rest_framework import status
 import pytz
 from django.core.paginator import Paginator
 from time import sleep
-from .models import Post, Reaction, User, Comment, Notification
+from .models import Post, Reaction, User, Comment, Notification, Reaction_type
 from .serializers import *
 from rest_framework.authtoken.models import Token
 
@@ -102,7 +102,12 @@ def user_from_token(request,token):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-
+@api_view(['GET','POST'])
+def reaction_types(request):
+    if request.method == 'GET':
+        reaction_types = Reaction_type.objects.all()
+        serializer = ReactionTypeSerializer(reaction_types, context={'request': request}, many=True)
+        return Response(serializer.data)
 
 @api_view(['GET','POST'])
 def post_reactions(request, pk=0):

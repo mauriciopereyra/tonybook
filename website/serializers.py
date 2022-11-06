@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Reaction, User, Comment, Notification
+from .models import Post, Reaction, User, Comment, Notification, Reaction_type
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -28,6 +28,11 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('pk', 'user', 'name', 'avatar', 'cover')
 
 
+class ReactionTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Reaction_type
+        fields = ('pk', 'name', 'svg')
 
 
 class NotificationSerializer(serializers.ModelSerializer):

@@ -18,12 +18,12 @@ class Post extends React.Component {
     };
 
 
-    likePost = (event) => {
+    likePost = (event,type=1) => {
       console.log(this.props.post.pk)
         axios.post(`${ipAddress}/api/reactions/`, {
             user: this.props.loggedUser.pk, // !!!!!
             post: this.props.post.pk,
-            type: 1
+            type: type
           })
           .then(function (response) {console.log(response);})
           .then(() => this.getLikes())
