@@ -7,6 +7,13 @@
     padding: 5px 0;
 }
 
+.flex-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+}
+
 .button {
     display: inline;
     width: 100%;

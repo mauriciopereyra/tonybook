@@ -1,5 +1,6 @@
 import './PostButtons.css';
 import React from 'react';
+import { comment, like } from './svg/icons';
 
 class PostButtons extends React.Component {
 
@@ -20,10 +21,10 @@ class PostButtons extends React.Component {
     checkLiked = () => {
         if (this.props.likes.filter(this.userInLikes).length){
             // this.setState({liked:true})
-            return <b>Liked</b>
+            return <span><b className='flex-button'>{like} Liked</b></span>
         } else {
             // this.setState({liked:false})
-            return "Like"
+            return <span className='flex-button'>{like} Like</span>
         }
     }
 
@@ -32,7 +33,7 @@ class PostButtons extends React.Component {
     }
 
     commentClick (el) {
-        el.target.parentElement.parentElement.getElementsByClassName("userInput")[0].getElementsByTagName("textarea")[0].focus()
+        el.target.parentElement.parentElement.parentElement.getElementsByClassName("userInput")[0].getElementsByTagName("textarea")[0].focus()
     }
 
     
@@ -41,14 +42,14 @@ class PostButtons extends React.Component {
         return (
         <div className="post_buttons">
             <div className='button' onClick={this.props.likePost}>
-                {this.checkLiked()}
+                <span> {this.checkLiked()}</span>
             </div>
             <div className='button' onClick={this.commentClick.bind(this)}>
-                Comment
+                <span className='flex-button'>{comment} Comment</span>
             </div>
-            <div className='button'>
+            {/* <div className='button'>
                 Share
-            </div>
+            </div> */}
         </div>
       )
     }
