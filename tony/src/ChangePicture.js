@@ -3,6 +3,7 @@ import React from 'react'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
 import {ipAddress} from './serverInfo'
+import { getCookie } from './getCookie';
 
 class ChangePicture extends React.Component {
     constructor(props){
@@ -67,14 +68,17 @@ class ChangePicture extends React.Component {
             method: "put",
             url: `${ipAddress}/api/users/${this.props.user.pk}`,
             data: updateUser,
-            headers: { "Content-Type": "multipart/form-data" },
+            headers: { "X-CSRFToken" :getCookie(),
+                "Content-Type": "multipart/form-data" },
           }).then(response => toast.success('Successfully uploaded!'))
           .then(() => {
             axios({
                 method: "post",
                 url: `${ipAddress}/api/posts/`,
                 data: newPost,
-                headers: { "Content-Type": "multipart/form-data" },
+                headers: { 
+                    "X-CSRFToken" :getCookie(),
+                    "Content-Type": "multipart/form-data" },
               }).then(() => this.props.getPosts())
           })
           .catch(error => {

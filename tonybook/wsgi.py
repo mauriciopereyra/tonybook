@@ -11,8 +11,14 @@ import os, sys
 
 from django.core.wsgi import get_wsgi_application
 
-sys.path.append('/var/www/tonybook')
-sys.path.append('/var/www/tonybook/tonybook')
+# sys.path.append('/var/www/tonybook')
+# sys.path.append('/var/www/tonybook/tonybook')
+
+# path = os.getcwd()
+# parent = os.path.abspath(os.path.join(path, os.pardir)
+
+# sys.path.append(path)
+# sys.path.append(parent)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tonybook.settings')
 

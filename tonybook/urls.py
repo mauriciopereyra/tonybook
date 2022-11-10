@@ -22,6 +22,7 @@ from rest_framework.authtoken import views as auth_views
 
 
 urlpatterns = [
+    # path('', views.foo),
     path('admin/', admin.site.urls),
     re_path(r'^api/posts/$', views.posts_list),
     re_path(r'^api/posts/user/(.+)$', views.posts_list),
@@ -40,5 +41,5 @@ urlpatterns = [
 
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
+    urlpatterns += static('tonybook-api'+settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

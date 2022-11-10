@@ -7,6 +7,7 @@ import PostReactions from './PostReactions';
 import axios from 'axios'; 
 import Comments_list from './Comments_list'
 import { ipAddress } from './serverInfo';
+import { axiosConfig } from './getCookie';
 
 class Post extends React.Component {
     constructor(props){
@@ -24,7 +25,7 @@ class Post extends React.Component {
             user: this.props.loggedUser.pk, // !!!!!
             post: this.props.post.pk,
             type: type
-          })
+          }, axiosConfig)
           .then(function (response) {console.log(response);})
           .then(() => this.getLikes())
           .catch(function (error) {console.log(error);});

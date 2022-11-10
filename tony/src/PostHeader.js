@@ -4,12 +4,13 @@ import axios from 'axios';
 import Avatar from './Avatar'
 import UserName from './UserName'
 import { ipAddress } from './serverInfo';
+import { axiosConfig } from './getCookie';
 
 class PostHeader extends React.Component {
 
 removePost = async() => {
   await axios
-  .delete(`${ipAddress}/api/posts/${this.props.post.pk}`)
+  .delete(`${ipAddress}/api/posts/${this.props.post.pk}`,axiosConfig)
   .then(res => this.setState({likes:res.data}))
   .catch(err => console.log(err));
   this.props.getPosts()

@@ -4,6 +4,7 @@ import axios from 'axios';
 import UserInput from './UserInput';
 import { ipAddress } from './serverInfo';
 import Spinner from './Spinner';
+import { getCookie } from './getCookie';
 
 class CreatePost extends React.Component {
 constructor(props){
@@ -30,14 +31,17 @@ handleSubmit = async(event) => {
       method: "post",
       url: `${ipAddress}/api/posts/`,
       data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { 
+        "X-CSRFToken": getCookie(),
+        "Content-Type": "multipart/form-data" ,
+      },
     });
     document.getElementById('CreatePost').reset()
     document.getElementById('imagePreview').style.display = 'none'
     document.getElementById('imagePreview').src = ''
     this.props.getPosts()
   } catch(error) {
-	  alert(error)
+	  console.log(error)
   }
   this.setState({loading:false})
 }

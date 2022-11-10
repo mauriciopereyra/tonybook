@@ -4,7 +4,7 @@ import UserInput from './UserInput';
 import axios from 'axios';
 import Comment from './Comment'
 import { ipAddress } from './serverInfo';
-
+import { axiosConfig, getCookie } from './getCookie';
 
 class Comments_list extends React.Component {
     constructor(props){
@@ -18,7 +18,7 @@ class Comments_list extends React.Component {
               user: this.props.loggedUser.pk,
               post: this.props.post.pk,
               content: content,
-            })
+            }, axiosConfig)
             .then(() => {this.props.getComments()})
             .then(function (response) {})
             .catch(function (error) {});
