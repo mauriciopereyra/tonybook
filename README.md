@@ -6,6 +6,7 @@ I created this minified version of Facebook to share pictures of my beloved cat,
 Front-end uses React and the backend is Django using its rest framework
 
 ### Features
+- Login
 - Post pictures
 - Like posts
 - Comment
