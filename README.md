@@ -10,6 +10,8 @@ Front-end uses React and the backend is Django using its rest framework
 - Like posts
 - Comment
 - Change avatar and cover in profile
+- Notifications
+- Remove own posts
 
 ![rsz_1rsz_2befunky-collage_1](https://user-images.githubusercontent.com/90732948/198866794-a4a6a93e-77e7-4426-913a-3907fb7d5ace.jpg)
 
